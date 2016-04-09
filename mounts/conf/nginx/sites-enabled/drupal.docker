@@ -4,34 +4,20 @@ server {
 
     sendfile off;
 
-    index index.php;
+    ## for large uploads
+    client_max_body_size 20M;
+
+    index index.php index.html;
     server_name drupal.docker;
     error_log  /var/log/nginx/drupal.error.log;
     access_log /var/log/nginx/drupal.access.log;
     root /docker/drupal_docker/www/;
 
-    client_max_body_size 20M;
-
-    location ^~ /sub {
-        alias /docker/drupal_docker_sub/www;
-        location ~ \.php$ {
-            include fastcgi_params;
-            fastcgi_param SCRIPT_FILENAME $request_filename;
-
-            fastcgi_pass php:9000;
-            try_files $uri $uri/ /index.php?$query_string =404;
-
-            fastcgi_split_path_info ^(.+\.php)(/.+)$;
-            fastcgi_index   index.php;
-        }
-    }
-
     location / {
-        try_files $uri /index.php?$query_string;
+        try_files $uri /index.php?$args;
     }
 
     location ~ \.php$ {
-        fastcgi_intercept_errors on;
         fastcgi_split_path_info ^(.+\.php)(/.+)$;
         fastcgi_pass php:9000;
         fastcgi_index index.php;
@@ -40,5 +26,23 @@ server {
         fastcgi_param PATH_INFO $fastcgi_path_info;
         fastcgi_read_timeout 300;
         fastcgi_cache  off;
+        fastcgi_intercept_errors on;
     }
+
+    # Don't allow direct access to PHP files in the vendor directory.
+    location ~ /vendor/.*\.php$ {
+        deny all;
+        return 404;
+    }
+
+    # Fighting with Styles? This little gem is amazing.
+    location ~ ^/sites/.*/files/styles/ { # For Drupal >= 7
+        try_files $uri @rewrite;
+    }
+
+    location ~* \.(js|css|png|jpg|jpeg|gif|ico)$ {
+        expires max;
+        log_not_found off;
+    }
+
 }
