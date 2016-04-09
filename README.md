@@ -5,7 +5,7 @@
 ### Inside the box
 
 ## Docker-Compose
-We use docker-compose to setup lovel networks, volumes and container and manage our development environment.
+We use docker-compose to setup local networks, volumes and container and manage our development environment.
 Visit [Docker Compose V1.7rc-1](https://docs.docker.com/compose/) For more info...
 
 
