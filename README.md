@@ -2,41 +2,51 @@
 
 [DrupalDockerDev](http://www.4alldigital.io/drupaldocker) is Docker based development environment for local Drupal development. Useful for debugging and developing with an intention to host sites using [DrupalDockerProd]
 
-# drupaldev-docker
-Docker Compose based environment for Drupal development and testing
-
 ### Inside the box
+
+## Docker-Compose
+We use docker-compose to setup lovel networks, volumes and container and manage our development environment.
+Visit [Docker Compose V1.7rc-1](https://docs.docker.com/compose/) For more info...
+
 
 ## MariaDB
 MariaDB is one of the most popular database servers in the world. It’s made by the original developers of MySQL and guaranteed to stay open source.
+
 Visit [MariaDB](https://mariadb.org) For more info...
 
 ## NGINX
 NGINX is a free, open-source, high-performance HTTP server and reverse proxy, as well as an IMAP/POP3 proxy server.
+
 Visit [Nginx](https://www.nginx.com/resources/wiki/) For more info...
 
 ## PHP-FPM
 PHP-FPM (FastCGI Process Manager) is an alternative PHP FastCGI implementation with some additional features useful for sites of any size, especially busier sites.
+
 Visit [PHP-FPM](http://php-fpm.org) For more info...
 
 ## APACHE SOLR
 Solr is the popular, blazing-fast, open source enterprise search platform built on Apache Lucene™.
+
 Visit [APACHE SOLR V4.10.1](http://lucene.apache.org/solr/) For more info...
 
 ## MAILCATCHER
 MailCatcher runs a super simple SMTP server which catches any message sent to it to display in a web interface. Run mailcatcher, set your favourite app to deliver to smtp://127.0.0.1:1025 instead of your default SMTP server, then check out http://127.0.0.1:1080 to see the mail that's arrived so far.
+
 Visit [MAILCATCHER](https://mailcatcher.me) For more info...
 
 ## REDIS
 Redis is an open source (BSD licensed), in-memory data structure store, used as database, cache and message broker.
+
 Visit [REDIS](http://redis.io) For more info...
 
 ## SELENIUM
 Selenium automates browsers. That's it! What you do with that power is entirely up to you. Primarily, it is for automating web applications for testing purposes, but is certainly not limited to just that. Boring web-based administration tasks can (and should!) also be automated as well.
+
 Visit [SELENIUM](http://www.seleniumhq.org) For more info...
 
 ## BEHAT
 Behat is an open source Behavior Driven Development framework for PHP 5.3+.
+
 Visit [BEHAT V3.0](http://docs.behat.org/en/v3.0/) For more info...
 
 
