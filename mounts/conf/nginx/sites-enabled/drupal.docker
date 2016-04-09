@@ -1,0 +1,44 @@
+server {
+    listen   80;
+    listen   [::]:80;
+
+    sendfile off;
+
+    index index.php;
+    server_name drupal.docker;
+    error_log  /var/log/nginx/drupal.error.log;
+    access_log /var/log/nginx/drupal.access.log;
+    root /docker/drupal_docker/www/;
+
+    client_max_body_size 20M;
+
+    location ^~ /sub {
+        alias /docker/drupal_docker_sub/www;
+        location ~ \.php$ {
+            include fastcgi_params;
+            fastcgi_param SCRIPT_FILENAME $request_filename;
+
+            fastcgi_pass php:9000;
+            try_files $uri $uri/ /index.php?$query_string =404;
+
+            fastcgi_split_path_info ^(.+\.php)(/.+)$;
+            fastcgi_index   index.php;
+        }
+    }
+
+    location / {
+        try_files $uri /index.php?$query_string;
+    }
+
+    location ~ \.php$ {
+        fastcgi_intercept_errors on;
+        fastcgi_split_path_info ^(.+\.php)(/.+)$;
+        fastcgi_pass php:9000;
+        fastcgi_index index.php;
+        include fastcgi_params;
+        fastcgi_param SCRIPT_FILENAME $document_root$fastcgi_script_name;
+        fastcgi_param PATH_INFO $fastcgi_path_info;
+        fastcgi_read_timeout 300;
+        fastcgi_cache  off;
+    }
+}

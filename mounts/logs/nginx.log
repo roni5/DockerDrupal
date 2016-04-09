@@ -1,0 +1,88 @@
+2015/08/12 23:46:20 [emerg] 41#0: "daemon" directive is duplicate in /etc/nginx/nginx.conf:86
+nginx: [emerg] "daemon" directive is duplicate in /etc/nginx/nginx.conf:86
+2015/08/12 23:46:21 [emerg] 42#0: "daemon" directive is duplicate in /etc/nginx/nginx.conf:86
+nginx: [emerg] "daemon" directive is duplicate in /etc/nginx/nginx.conf:86
+2015/08/12 23:46:23 [emerg] 43#0: "daemon" directive is duplicate in /etc/nginx/nginx.conf:86
+nginx: [emerg] "daemon" directive is duplicate in /etc/nginx/nginx.conf:86
+2015/08/12 23:46:26 [emerg] 44#0: "daemon" directive is duplicate in /etc/nginx/nginx.conf:86
+nginx: [emerg] "daemon" directive is duplicate in /etc/nginx/nginx.conf:86
+2015/08/12 23:46:30 [emerg] 45#0: "daemon" directive is duplicate in /etc/nginx/nginx.conf:86
+nginx: [emerg] "daemon" directive is duplicate in /etc/nginx/nginx.conf:86
+2015/08/12 23:46:35 [emerg] 46#0: "daemon" directive is duplicate in /etc/nginx/nginx.conf:86
+nginx: [emerg] "daemon" directive is duplicate in /etc/nginx/nginx.conf:86
+2015/08/12 23:46:42 [emerg] 47#0: "daemon" directive is duplicate in /etc/nginx/nginx.conf:86
+nginx: [emerg] "daemon" directive is duplicate in /etc/nginx/nginx.conf:86
+2015/08/12 23:46:49 [emerg] 48#0: "daemon" directive is duplicate in /etc/nginx/nginx.conf:86
+nginx: [emerg] "daemon" directive is duplicate in /etc/nginx/nginx.conf:86
+2015/08/12 23:46:57 [emerg] 49#0: "daemon" directive is duplicate in /etc/nginx/nginx.conf:86
+nginx: [emerg] "daemon" directive is duplicate in /etc/nginx/nginx.conf:86
+2015/08/12 23:47:06 [emerg] 50#0: "daemon" directive is duplicate in /etc/nginx/nginx.conf:86
+nginx: [emerg] "daemon" directive is duplicate in /etc/nginx/nginx.conf:86
+2015/08/12 23:47:16 [emerg] 51#0: "daemon" directive is duplicate in /etc/nginx/nginx.conf:86
+nginx: [emerg] "daemon" directive is duplicate in /etc/nginx/nginx.conf:86
+2015/08/12 23:47:27 [emerg] 52#0: "daemon" directive is duplicate in /etc/nginx/nginx.conf:86
+nginx: [emerg] "daemon" directive is duplicate in /etc/nginx/nginx.conf:86
+2015/08/12 23:47:39 [emerg] 53#0: "daemon" directive is duplicate in /etc/nginx/nginx.conf:86
+nginx: [emerg] "daemon" directive is duplicate in /etc/nginx/nginx.conf:86
+2015/08/12 23:47:52 [emerg] 54#0: "daemon" directive is duplicate in /etc/nginx/nginx.conf:86
+nginx: [emerg] "daemon" directive is duplicate in /etc/nginx/nginx.conf:86
+2015/08/12 23:48:06 [emerg] 55#0: "daemon" directive is duplicate in /etc/nginx/nginx.conf:86
+nginx: [emerg] "daemon" directive is duplicate in /etc/nginx/nginx.conf:86
+2015/08/12 23:48:21 [emerg] 56#0: "daemon" directive is duplicate in /etc/nginx/nginx.conf:86
+nginx: [emerg] "daemon" directive is duplicate in /etc/nginx/nginx.conf:86
+2015/08/12 23:48:37 [emerg] 57#0: "daemon" directive is duplicate in /etc/nginx/nginx.conf:86
+nginx: [emerg] "daemon" directive is duplicate in /etc/nginx/nginx.conf:86
+2015/08/12 23:48:54 [emerg] 58#0: "daemon" directive is duplicate in /etc/nginx/nginx.conf:86
+nginx: [emerg] "daemon" directive is duplicate in /etc/nginx/nginx.conf:86
+2015/08/12 23:49:12 [emerg] 59#0: "daemon" directive is duplicate in /etc/nginx/nginx.conf:86
+nginx: [emerg] "daemon" directive is duplicate in /etc/nginx/nginx.conf:86
+2015/08/12 23:49:31 [emerg] 60#0: "daemon" directive is duplicate in /etc/nginx/nginx.conf:86
+nginx: [emerg] "daemon" directive is duplicate in /etc/nginx/nginx.conf:86
+2015/08/12 23:49:51 [emerg] 61#0: "daemon" directive is duplicate in /etc/nginx/nginx.conf:86
+nginx: [emerg] "daemon" directive is duplicate in /etc/nginx/nginx.conf:86
+2015/08/12 23:50:12 [emerg] 62#0: "daemon" directive is duplicate in /etc/nginx/nginx.conf:86
+nginx: [emerg] "daemon" directive is duplicate in /etc/nginx/nginx.conf:86
+2015/08/12 23:50:34 [emerg] 63#0: "daemon" directive is duplicate in /etc/nginx/nginx.conf:86
+nginx: [emerg] "daemon" directive is duplicate in /etc/nginx/nginx.conf:86
+2015/08/12 23:50:57 [emerg] 64#0: "daemon" directive is duplicate in /etc/nginx/nginx.conf:86
+nginx: [emerg] "daemon" directive is duplicate in /etc/nginx/nginx.conf:86
+2015/08/12 23:51:19 [emerg] 8#0: "daemon" directive is duplicate in /etc/nginx/nginx.conf:86
+nginx: [emerg] "daemon" directive is duplicate in /etc/nginx/nginx.conf:86
+2015/08/12 23:51:20 [emerg] 9#0: "daemon" directive is duplicate in /etc/nginx/nginx.conf:86
+nginx: [emerg] "daemon" directive is duplicate in /etc/nginx/nginx.conf:86
+2015/08/12 23:51:22 [emerg] 10#0: "daemon" directive is duplicate in /etc/nginx/nginx.conf:86
+nginx: [emerg] "daemon" directive is duplicate in /etc/nginx/nginx.conf:86
+2015/08/12 23:51:25 [emerg] 11#0: "daemon" directive is duplicate in /etc/nginx/nginx.conf:86
+nginx: [emerg] "daemon" directive is duplicate in /etc/nginx/nginx.conf:86
+2015/08/12 23:51:29 [emerg] 12#0: "daemon" directive is duplicate in /etc/nginx/nginx.conf:86
+nginx: [emerg] "daemon" directive is duplicate in /etc/nginx/nginx.conf:86
+2015/08/12 23:51:34 [emerg] 13#0: "daemon" directive is duplicate in /etc/nginx/nginx.conf:86
+nginx: [emerg] "daemon" directive is duplicate in /etc/nginx/nginx.conf:86
+2015/08/12 23:51:41 [emerg] 14#0: "daemon" directive is duplicate in /etc/nginx/nginx.conf:86
+nginx: [emerg] "daemon" directive is duplicate in /etc/nginx/nginx.conf:86
+2015/08/12 23:51:48 [emerg] 15#0: "daemon" directive is duplicate in /etc/nginx/nginx.conf:86
+nginx: [emerg] "daemon" directive is duplicate in /etc/nginx/nginx.conf:86
+2015/08/12 23:51:56 [emerg] 16#0: "daemon" directive is duplicate in /etc/nginx/nginx.conf:86
+nginx: [emerg] "daemon" directive is duplicate in /etc/nginx/nginx.conf:86
+2015/08/12 23:52:05 [emerg] 17#0: "daemon" directive is duplicate in /etc/nginx/nginx.conf:86
+nginx: [emerg] "daemon" directive is duplicate in /etc/nginx/nginx.conf:86
+2015/08/12 23:52:15 [emerg] 18#0: "daemon" directive is duplicate in /etc/nginx/nginx.conf:86
+nginx: [emerg] "daemon" directive is duplicate in /etc/nginx/nginx.conf:86
+2015/08/12 23:52:26 [emerg] 19#0: "daemon" directive is duplicate in /etc/nginx/nginx.conf:86
+nginx: [emerg] "daemon" directive is duplicate in /etc/nginx/nginx.conf:86
+2015/08/12 23:52:38 [emerg] 20#0: "daemon" directive is duplicate in /etc/nginx/nginx.conf:86
+nginx: [emerg] "daemon" directive is duplicate in /etc/nginx/nginx.conf:86
+2015/08/12 23:52:51 [emerg] 21#0: "daemon" directive is duplicate in /etc/nginx/nginx.conf:86
+nginx: [emerg] "daemon" directive is duplicate in /etc/nginx/nginx.conf:86
+2015/08/12 23:53:05 [emerg] 22#0: "daemon" directive is duplicate in /etc/nginx/nginx.conf:86
+nginx: [emerg] "daemon" directive is duplicate in /etc/nginx/nginx.conf:86
+2015/08/12 23:53:20 [emerg] 23#0: "daemon" directive is duplicate in /etc/nginx/nginx.conf:86
+nginx: [emerg] "daemon" directive is duplicate in /etc/nginx/nginx.conf:86
+2015/08/12 23:53:36 [emerg] 24#0: "daemon" directive is duplicate in /etc/nginx/nginx.conf:86
+nginx: [emerg] "daemon" directive is duplicate in /etc/nginx/nginx.conf:86
+2015/08/12 23:53:53 [emerg] 25#0: "daemon" directive is duplicate in /etc/nginx/nginx.conf:86
+nginx: [emerg] "daemon" directive is duplicate in /etc/nginx/nginx.conf:86
+2015/08/12 23:54:11 [emerg] 26#0: "daemon" directive is duplicate in /etc/nginx/nginx.conf:86
+nginx: [emerg] "daemon" directive is duplicate in /etc/nginx/nginx.conf:86
+2015/08/12 23:54:30 [emerg] 27#0: "daemon" directive is duplicate in /etc/nginx/nginx.conf:86
+nginx: [emerg] "daemon" directive is duplicate in /etc/nginx/nginx.conf:86

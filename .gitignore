@@ -1,36 +1,92 @@
-# Ignore configuration files that may contain sensitive information.
-sites/*/*settings*.php
+# Packages #
+############
+*.7z
+*.dmg
+*.gz
+*.bz2
+*.iso
+*.rar
+*.tar
+*.zip
+*.tgz
 
-# Ignore paths that contain generated content.
-files/
-sites/*/files
-sites/*/private
+# Logs and databases #
+######################
+#*.log
+mounts/conf/solr/*.log
+*.sql
+.log
 
-# Ignore default text files
-robots.txt
-/CHANGELOG.txt
-/COPYRIGHT.txt
-/INSTALL*.txt
-/LICENSE.txt
-/MAINTAINERS.txt
-/UPGRADE.txt
-/README.txt
-sites/all/README.txt
-sites/all/modules/README.txt
-sites/all/themes/README.txt
+# OS generated files #
+######################
+.DS_Store*
+ehthumbs.db
+Thumbs.db
+._*
+*~
 
-# Ignore everything but the "sites" folder ( for non core developer )
-.htaccess
-web.config
-authorize.php
-cron.php
-index.php
-install.php
-update.php
-xmlrpc.php
-/includes
-/misc
-/modules
-/profiles
-/scripts
-/themes
+# Vim generated files #
+######################
+*.un~
+*.swp
+
+# SASS #
+##########
+.sass-cache
+
+# Ignore Eclipse IDE stuff
+.buildpath
+.project
+.settings/*
+.settings
+.htpasswd
+.DS_Store
+
+# Ignore Netbeans IDE stuff
+nbproject/*
+build.xml
+build/*
+nbbuild/*
+dist/*
+nbdist/*
+nbactions.xml
+nb-configuration.xml
+
+# Ignore PHPStore IDE stuff
+.idea
+
+# Ignore Sublime SFTP config file
+sftp-config.json
+
+# Ignore local stuff
+mounts/conf/solr/solr/*
+mounts/conf/solr/logs/*
+mounts/conf/solr/site/data
+
+# Example settings files #
+##########################
+settings/the.settings.local.php
+
+mounts/conf/nginx/certs/*
+mounts/conf/nginx/ssl/*
+#mounts/conf/nginx/sites-enabled/*
+#!mounts/conf/nginx/sites-enabled/*.txt
+
+# Behat cache
+mounts/conf/behat/cache/*
+
+#replace this with an exmaple file
+mounts/conf/behat/docker.aliases.drushrc.php
+
+# sublime temp files
+*.tmp
+
+# temp .sql dump in Volume mapped conf directory
+*.sql
+*.tar.gz
+
+npm/*
+
+
+images/php7
+images/php70/

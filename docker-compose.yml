@@ -1,0 +1,172 @@
+version: "2"
+services:
+  nginx:
+#    image: jwilder/nginx-proxy
+    image: rckrdstrgrd/nginx-proxy
+    ports:
+      - '80:80'
+      - '443:443'
+    volumes:
+      - /var/run/docker.sock:/tmp/docker.sock:ro
+      - ./mounts/conf/nginx/proxy/nginx.conf:/etc/nginx/nginx.conf
+      - /tmp/nginx:/etc/nginx/conf.d
+    networks:
+      - frontend
+      - backend
+    hostname: nginx
+
+  dockergen:
+    image: jwilder/docker-gen:latest
+    volumes:
+      - /var/run/docker.sock:/tmp/docker.sock
+      - ./mounts/conf/nginx/templates:/etc/docker-gen/templates
+    volumes_from:
+      - nginx
+    tty: true
+    command: >
+      -watch
+      -only-exposed
+      -notify-sighup dockerdev_nginx_1
+      /etc/docker-gen/templates/nginx.tmpl
+      /etc/nginx/conf.d/default.conf
+
+  db:
+    image : mariadb:10.1.11
+    volumes :
+      - mysql-data:/var/lib/mysql
+      - ./mounts/conf/mysql/conf.d:/etc/mysql/conf.d
+    ports :
+      - "3306:3306"
+    environment :
+      - MYSQL_ROOT_PASSWORD=password
+      - MYSQL_USER=dev
+      - MYSQL_PASSWORD=password
+    hostname: db
+    networks:
+      - backend
+
+  php:
+    image : 4alldigital/drupaldev-php
+    ports :
+     - "8022:22"
+    volumes :
+      - ~/Sites/:/docker
+      - ./mounts/conf/php-fpm/cli-php.ini:/etc/php5/cli/php.ini
+      - ./mounts/conf/php-fpm/php.ini:/etc/php5/fpm/php.ini
+      - ./mounts/conf/php-fpm/conf.d:/etc/php5/fpm/conf.d
+      - ./mounts/conf/php-fpm/pool.d/www.conf:/etc/php5/fpm/pool.d/www.conf
+    extra_hosts:
+      - drupal.docker:192.168.99.100
+    tty : true
+    hostname: php
+    networks:
+      - backend
+
+  mailcatcher:
+    image : schickling/mailcatcher
+    ports :
+      - "1080:1080"
+    hostname: mailcatcher
+    networks:
+      - backend
+
+  web:
+    image : 4alldigital/drupaldev-nginx
+    ports :
+      - "8088:80"
+      - "4443:443"
+    volumes :
+      - ~/Sites/:/docker
+      - ./mounts/conf/nginx/nginx.conf:/etc/nginx/nginx.conf
+      - ./mounts/conf/nginx/sites-enabled:/etc/nginx/sites-enabled
+      #- ./mounts/logs/supervisor:/var/log/supervisor
+    environment :
+      - VIRTUAL_HOST=drupal.docker
+      - VIRTUAL_NETWORK=nginx-proxy
+    hostname: web
+    networks:
+      - backend
+
+  solr:
+    image : 4alldigital/drupaldev-solr
+    ports :
+      - "8983:8983"
+    volumes :
+      - ./mounts/conf/solr:/opt/solr/example/solr
+    hostname: solr
+    networks:
+      - backend
+
+  redis:
+    image : 4alldigital/drupaldev-redis
+    ports :
+      - "6379:6379"
+    volumes :
+      - ./mounts/conf/redis/redis.conf:/etc/redis/redis.conf
+      - ./mounts/conf/redis/sentinel.conf:/etc/redis/sentinel.conf
+    hostname: redis
+    networks:
+      - backend
+
+  behat:
+    image: 4alldigital/drupaldev-behat
+    volumes:
+      - ./mounts/conf/behat/docker.aliases.drushrc.php:/root/.drush/docker.aliases.drushrc.php
+      - ~/Sites/:/docker
+      - ~/Sites/tests/screenshots/:/var/tmp/screenshots
+      - ~/Sites/tests/tmp/:/tmp
+    environment:
+      website: http://drupal.docker
+    extra_hosts:
+      - drupal.docker:192.168.99.100
+    hostname: behat
+    networks:
+      - backend
+
+  selenium:
+    image: selenium/hub
+    ports:
+      - 4444:4444
+    volumes :
+      - /e2e/uploads:/e2e/uploads
+    environment :
+      - SE_OPTS=-debug
+    hostname: selenium
+    networks:
+      - backend
+
+  firefox:
+    image: selenium/node-firefox-debug
+    ports:
+      - 5900
+    extra_hosts:
+      - drupal.docker:192.168.99.100
+    environment:
+      - HUB_PORT_4444_TCP_ADDR=selenium
+      - HUB_PORT_4444_TCP_PORT=4444
+      - REMOTE_HOST_PARAM=-maxSession 4 -browser browserName=firefox,maxInstances=4
+    hostname: firefox
+    networks:
+      - backend
+
+  chrome:
+    image: selenium/node-chrome-debug
+    ports:
+      - 5901
+    extra_hosts:
+      - drupal.docker:192.168.99.100
+    environment:
+      - HUB_PORT_4444_TCP_ADDR=selenium
+      - HUB_PORT_4444_TCP_PORT=4444
+      - REMOTE_HOST_PARAM=-maxSession 4 -browser browserName=firefox,maxInstances=4
+    hostname: chrome
+    networks:
+      - backend
+
+volumes:
+  mysql-data:
+    driver: local
+networks:
+  frontend:
+  backend:
+    driver: bridge

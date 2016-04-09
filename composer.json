@@ -1,0 +1,6 @@
+{
+    "require": {
+        "kibao/mailcatcher": "dev-master",
+        "kibao/behat-mailcatcher-extension": "0.2.*@dev"
+    }
+}
