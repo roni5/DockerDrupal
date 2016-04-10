@@ -78,7 +78,7 @@ services:
       - ~/Sites/:/docker
       - ./mounts/conf/nginx/nginx.conf:/etc/nginx/nginx.conf
       - ./mounts/conf/nginx/sites-enabled:/etc/nginx/sites-enabled
-      #- ./mounts/logs/supervisor:/var/log/supervisor
+      - ./mounts/logs/supervisor:/var/log/supervisor
     environment :
       - VIRTUAL_HOST=drupal.docker
       - VIRTUAL_NETWORK=nginx-proxy
