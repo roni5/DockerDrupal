@@ -1,6 +1,6 @@
 version: "2"
 services:
-  nginx:
+  nginx-proxy:
 #    image: jwilder/nginx-proxy
     image: rckrdstrgrd/nginx-proxy
     ports:
@@ -13,7 +13,8 @@ services:
     networks:
       - frontend
       - backend
-    hostname: nginx
+    hostname: nginx-proxy
+    container_name: nginx-proxy
 
   dockergen:
     image: jwilder/docker-gen:latest
@@ -23,6 +24,8 @@ services:
     volumes_from:
       - nginx
     tty: true
+    hostname: dockergen
+    container_name: dockergen
     command: >
       -watch
       -only-exposed
@@ -41,6 +44,7 @@ services:
       - MYSQL_USER=dev
       - MYSQL_PASSWORD=password
     hostname: db
+    container_name: mysql
     networks:
       - backend
 
@@ -58,6 +62,7 @@ services:
       - drupal.docker:192.168.99.100
     tty : true
     hostname: php
+    container_name: php
     networks:
       - backend
 
@@ -69,7 +74,7 @@ services:
     networks:
       - backend
 
-  web:
+  nginx:
     image : 4alldigital/drupaldev-nginx
     ports :
       - "8088:80"
@@ -80,9 +85,9 @@ services:
       - ./mounts/conf/nginx/sites-enabled:/etc/nginx/sites-enabled
       - ./mounts/logs/supervisor:/var/log/supervisor
     environment :
-      - VIRTUAL_HOST=drupal.docker
+      - VIRTUAL_HOST=$DOCKER_VHOSTS
       - VIRTUAL_NETWORK=nginx-proxy
-    hostname: web
+    hostname: nginx
     networks:
       - backend
 
@@ -93,6 +98,7 @@ services:
     volumes :
       - ./mounts/conf/solr:/opt/solr/example/solr
     hostname: solr
+    container_name: solr
     networks:
       - backend
 
@@ -104,6 +110,7 @@ services:
       - ./mounts/conf/redis/redis.conf:/etc/redis/redis.conf
       - ./mounts/conf/redis/sentinel.conf:/etc/redis/sentinel.conf
     hostname: redis
+    container_name: redis
     networks:
       - backend
 
@@ -119,6 +126,7 @@ services:
     extra_hosts:
       - drupal.docker:192.168.99.100
     hostname: behat
+    container_name: behat
     networks:
       - backend
 
@@ -131,6 +139,7 @@ services:
     environment :
       - SE_OPTS=-debug
     hostname: selenium
+    container_name: selenium
     networks:
       - backend
 
@@ -145,6 +154,7 @@ services:
       - HUB_PORT_4444_TCP_PORT=4444
       - REMOTE_HOST_PARAM=-maxSession 4 -browser browserName=firefox,maxInstances=4
     hostname: firefox
+    container_name: firefox
     networks:
       - backend
 
@@ -159,6 +169,7 @@ services:
       - HUB_PORT_4444_TCP_PORT=4444
       - REMOTE_HOST_PARAM=-maxSession 4 -browser browserName=firefox,maxInstances=4
     hostname: chrome
+    container_name: chroms
     networks:
       - backend
 
