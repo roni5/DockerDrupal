@@ -84,9 +84,7 @@ services:
       - ./mounts/conf/nginx/nginx.conf:/etc/nginx/nginx.conf
       - ./mounts/conf/nginx/sites-enabled:/etc/nginx/sites-enabled
       - ./mounts/logs/supervisor:/var/log/supervisor
-    environment :
-      - VIRTUAL_HOST=$DOCKER_VHOSTS
-      - VIRTUAL_NETWORK=nginx-proxy
+    env_file: .env
     hostname: nginx
     networks:
       - backend

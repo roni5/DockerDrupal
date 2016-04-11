@@ -29,6 +29,12 @@ Solr is the popular, blazing-fast, open source enterprise search platform built 
 
 Visit [APACHE SOLR V4.10.1](http://lucene.apache.org/solr/) For more info...
 
+### Configuration:
+ - To add a new index:
+ 1. Copy the [site] folder in /mounts/conf/solr/ adn rename eg. sitetwo
+ 2. Remove the /data directory
+ 3. Name you index by editing core.properties in your new folder
+
 ## MAILCATCHER
 MailCatcher runs a super simple SMTP server which catches any message sent to it to display in a web interface. Run mailcatcher, set your favourite app to deliver to smtp://127.0.0.1:1025 instead of your default SMTP server, then check out http://127.0.0.1:1080 to see the mail that's arrived so far.
 
