@@ -38,7 +38,7 @@ Solr is the popular, blazing-fast, open source enterprise search platform built 
 Visit [APACHE SOLR V4.10.1](http://lucene.apache.org/solr/) For more info...
 
 ### Configuration:
- - TO view the demo index, goto http://192.168.99.100:8983/solr/#/SITE, once you local dev environment is fully setup.
+ - To view the demo index, goto http://192.168.99.100:8983/solr/#/SITE, once you local dev environment is fully setup.
  - To add a new index:
  1. Copy the [site] folder in /mounts/conf/solr/ adn rename eg. sitetwo
  2. Remove the /data directory
