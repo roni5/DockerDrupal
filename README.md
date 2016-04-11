@@ -4,7 +4,7 @@
 
 # Get Started
 
-  1. Run open `Terminal` application
+  1. Open `Terminal` application
   2. run ```mkdir -p ~/.infra```
   3. run ``` cd ~/.infra```
   4. run ``` git clone git@github.com:4alldigital/drupaldev-docker.git```
