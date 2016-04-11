@@ -2,12 +2,18 @@
 
 [DrupalDockerDev](http://www.4alldigital.io/drupaldocker) is Docker based development environment for local Drupal development. Useful for debugging and developing with an intention to host sites using [DrupalDockerProd]
 
+### Get Started
+
+  1. Run open `Terminal` application
+  2. run ```mkdir -p ~/.infra```
+  3. run ``` cd ~/.infra```
+  4. run ``` git clone git@github.com:4alldigital/drupaldev-docker.git```
+
 ### Inside the box
 
 ## Docker-Compose
 We use docker-compose to setup local networks, volumes and container and manage our development environment.
 Visit [Docker Compose V1.7rc-1](https://docs.docker.com/compose/) For more info...
-
 
 ## MariaDB
 MariaDB is one of the most popular database servers in the world. It’s made by the original developers of MySQL and guaranteed to stay open source.
@@ -30,6 +36,7 @@ Solr is the popular, blazing-fast, open source enterprise search platform built 
 Visit [APACHE SOLR V4.10.1](http://lucene.apache.org/solr/) For more info...
 
 ### Configuration:
+ - TO view the demo index, goto http://192.168.99.100:8983/solr/#/SITE, once you local dev environment is fully setup.
  - To add a new index:
  1. Copy the [site] folder in /mounts/conf/solr/ adn rename eg. sitetwo
  2. Remove the /data directory
