@@ -2,14 +2,16 @@
 
 [DrupalDockerDev](http://www.4alldigital.io/drupaldocker) is Docker based development environment for local Drupal development. Useful for debugging and developing with an intention to host sites using [DrupalDockerProd]
 
-### Get Started
+# Get Started
 
   1. Run open `Terminal` application
   2. run ```mkdir -p ~/.infra```
   3. run ``` cd ~/.infra```
   4. run ``` git clone git@github.com:4alldigital/drupaldev-docker.git```
+  5. run ``` cd ~/.infra/drupaldev-docker/scripts
+  6. run ``` sudo ./onboardme.sh```
 
-### Inside the box
+# Inside the box
 
 ## Docker-Compose
 We use docker-compose to setup local networks, volumes and container and manage our development environment.
