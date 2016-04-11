@@ -57,6 +57,9 @@ Visit [REDIS](http://redis.io) For more info...
 ## SELENIUM
 Selenium automates browsers. That's it! What you do with that power is entirely up to you. Primarily, it is for automating web applications for testing purposes, but is certainly not limited to just that. Boring web-based administration tasks can (and should!) also be automated as well.
 
+### Configuration:
+ - To view your running Selenium grid visit http://192.168.99.100:4444/wd/hub in a browser once you local dev environment is fully set up and your containers are all running.
+
 Visit [SELENIUM](http://www.seleniumhq.org) For more info...
 
 ## BEHAT
