@@ -13,22 +13,11 @@ echo "${GREEN}INSTALL DEPENDENCIES${NC}"
 echo "#################################"
 
 
-echo -e '\n# ADDED VIA ONBOARDING \nexport PATH="$HOME/.composer/vendor/bin:$PATH"' | sudo tee -a  ~/.bash_profile
-echo -e '\n# ADDED VIA ONBOARDING \nexport DOCKER_VHOSTS=drupal.docker' | sudo tee -a  ~/.bash_profile
-echo -e '\n# ADDED VIA ONBOARDING \neval "$(docker-machine env default)"' | sudo tee -a  ~/.bash_profile
-echo -e '\n# ADDED VIA ONBOARDING \n192.168.99.100 drupal.docker' | tee -a /etc/hosts
+echo '\n# ADDED VIA ONBOARDING \nexport PATH="$HOME/.composer/vendor/bin:$PATH"' | sudo tee -a  ~/.bash_profile
+echo '\n# ADDED VIA ONBOARDING \nexport DOCKER_VHOSTS=drupal.docker' | sudo tee -a  ~/.bash_profile
+echo '\n# ADDED VIA ONBOARDING \neval "$(docker-machine env default)"' | sudo tee -a  ~/.bash_profile
+echo '\n# ADDED VIA ONBOARDING \n192.168.99.100 drupal.docker' | tee -a /etc/hosts
 source ~/.bash_profile
-
-# #
-# # Check if SSH-COPY-ID is installed
-# # SSH-COPY-ID for OSX we will need later to ssh between containers
-# #
-
-which -s ssh-copy-id || curl -L https://raw.githubusercontent.com/beautifulcode/ssh-copy-id-for-OSX/master/install.sh | sh
-
-# # # install Drupal/PHP app dependencies Q: can we run this stuff without curl -sS https://getcomposer.org/installer | php
-mv composer.phar /usr/local/bin/composer
-composer global require drush/drush:7.1.0
 
 # #
 # # Check if Homebrew is installed
@@ -46,9 +35,19 @@ else
     cd /usr/local
     git fetch origin
     git reset --hard origin/master
-    chown -R $USER /usr/local
+    sudo chown -R $USER /usr/local
     brew update
 fi
+
+# #
+# # Check if SSH-COPY-ID is installed
+# # SSH-COPY-ID for OSX we will need later to ssh between containers
+# #
+which -s ssh-copy-id || curl -L https://raw.githubusercontent.com/beautifulcode/ssh-copy-id-for-OSX/master/install.sh | sh
+
+# # # install Drupal/PHP app dependencies Q: can we run this stuff without curl -sS https://getcomposer.org/installer | php
+mv composer.phar /usr/local/bin/composer
+composer global require drush/drush:7.1.0
 
 # #
 # # Check if Git is installed
@@ -114,7 +113,7 @@ mkdir -p ~/Sites/drupal_docker/repository/libraries
 mkdir -p ~/Sites/drupal_docker/repository/scripts
 
 # create folders
-echo -e "${GREEN}BUILDING DIRECTORY STRUCTURE${NC}"
+echo "${GREEN}BUILDING DIRECTORY STRUCTURE${NC}"
 
   # builds folder
   mkdir -p builds
@@ -161,7 +160,7 @@ fi
 drush make repository/project.make.yaml builds/build-$now/public
 
 
-echo -e "${GREEN}SYMLINK NEW DIRECTORIES${NC}"
+echo "${GREEN}SYMLINK NEW DIRECTORIES${NC}"
 ln -s ../../../../../repository/themes builds/build-$now/public/sites/default/themes
 ln -s ../../../../../repository/modules builds/build-$now/public/sites/default/modules
 ln -s ../../../../../repository/libraries builds/build-$now/public/sites/default/libraries
