@@ -25,11 +25,10 @@ echo "#################################"
 
 which -s ssh-copy-id || curl -L https://raw.githubusercontent.com/beautifulcode/ssh-copy-id-for-OSX/master/install.sh | sh
 
-# # # install Drupal/PHP app dependencies Q: can we run this stuff without SUDO
-curl -sS https://getcomposer.org/installer | php
+# # # install Drupal/PHP app dependencies Q: can we run this stuff without curl -sS https://getcomposer.org/installer | php
 mv composer.phar /usr/local/bin/composer
 composer global require drush/drush:7.1.0
-echo '\n# ADDED VIA ONBOARDING \nexport PATH="$HOME/.composer/vendor/bin:$PATH"' | sudo tee -a  ~/.bash_profile
+echo '\n# ADDED VIA ONBOARDING \nexport PATH="$HOME/.composer/vendor/bin:$PATH"' | tee -a  ~/.bash_profile
 
 # #
 # # Check if Homebrew is installed
@@ -46,8 +45,8 @@ else
     #http://stackoverflow.com/a/12031907 - for info
     cd /usr/local
     git fetch origin
-    sudo git reset --hard origin/master
-    sudo chown -R $USER /usr/local
+    git reset --hard origin/master
+    chown -R $USER /usr/local
     brew update
 fi
 
@@ -87,8 +86,8 @@ brew cask install dockertoolbox
 cd ~/infra/drupaldev-docker/
 docker-machine rm default
 docker-machine create -d virtualbox --virtualbox-memory "8192" --virtualbox-cpu-count "2" --virtualbox-disk-size "80000" default
-echo '\n# ADDED VIA ONBOARDING \nexport DOCKER_VHOSTS=drupal.docker' | sudo tee -a  ~/.bash_profile
-echo '\n# ADDED VIA ONBOARDING \neval "$(docker-machine env default)"' | sudo tee -a  ~/.bash_profile
+echo '\n# ADDED VIA ONBOARDING \nexport DOCKER_VHOSTS=drupal.docker' | tee -a  ~/.bash_profile
+echo '\n# ADDED VIA ONBOARDING \neval "$(docker-machine env default)"' | tee -a  ~/.bash_profile
 source ~/.bash_profile
 
 ## MAKE SURE WE GET DOCKER-COMPOSE 1.7+
@@ -246,7 +245,7 @@ else
   echo "drupal.docker file added"
 fi
 
-echo -e '\n# ADDED VIA ONBOARDING \n192.168.99.100 drupal.docker' | sudo tee -a /etc/hosts
+echo -e '\n# ADDED VIA ONBOARDING \n192.168.99.100 drupal.docker' | tee -a /etc/hosts
 
 #reload nginx conf
 docker exec -i drupaldevdocker_web_1 /etc/init.d/nginx reload
