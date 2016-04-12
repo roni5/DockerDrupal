@@ -81,7 +81,7 @@ echo "${GREEN}INSTALL DOCKER AND DEPENDENCIES${NC}"
 echo "############################################"
 
 ## Note : issue with multiple hostonly networks on same IP : VBoxManage list hostonlyifs || VBoxManage hostonlyif remove vboxnetXX
-brew cask install dockertoolbox
+which -s docker || brew cask install dockertoolbox
 cd ~/infra/drupaldev-docker/
 docker-machine rm default
 docker-machine create -d virtualbox --virtualbox-memory "8192" --virtualbox-cpu-count "2" --virtualbox-disk-size "80000" default
