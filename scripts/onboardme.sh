@@ -1,11 +1,5 @@
 #!/bin/sh
 
-### Checking for user
-if [ "$(whoami)" != 'root' ]; then
-    echo "You have no permission to run $0 as non-root user. Use sudo !!!"
-    exit 1;
-fi
-
 BLUE='\033[0;34m'
 GREEN='\033[0;32m'
 NC='\033[0m'
@@ -18,6 +12,13 @@ echo "#################################"
 echo "${GREEN}INSTALL DEPENDENCIES${NC}"
 echo "#################################"
 
+
+echo -e '\n# ADDED VIA ONBOARDING \nexport PATH="$HOME/.composer/vendor/bin:$PATH"' | sudo tee -a  ~/.bash_profile
+echo -e '\n# ADDED VIA ONBOARDING \nexport DOCKER_VHOSTS=drupal.docker' | sudo tee -a  ~/.bash_profile
+echo -e '\n# ADDED VIA ONBOARDING \neval "$(docker-machine env default)"' | sudo tee -a  ~/.bash_profile
+echo -e '\n# ADDED VIA ONBOARDING \n192.168.99.100 drupal.docker' | tee -a /etc/hosts
+source ~/.bash_profile
+
 # #
 # # Check if SSH-COPY-ID is installed
 # # SSH-COPY-ID for OSX we will need later to ssh between containers
@@ -28,7 +29,6 @@ which -s ssh-copy-id || curl -L https://raw.githubusercontent.com/beautifulcode/
 # # # install Drupal/PHP app dependencies Q: can we run this stuff without curl -sS https://getcomposer.org/installer | php
 mv composer.phar /usr/local/bin/composer
 composer global require drush/drush:7.1.0
-echo '\n# ADDED VIA ONBOARDING \nexport PATH="$HOME/.composer/vendor/bin:$PATH"' | tee -a  ~/.bash_profile
 
 # #
 # # Check if Homebrew is installed
@@ -86,9 +86,7 @@ brew cask install dockertoolbox
 cd ~/infra/drupaldev-docker/
 docker-machine rm default
 docker-machine create -d virtualbox --virtualbox-memory "8192" --virtualbox-cpu-count "2" --virtualbox-disk-size "80000" default
-echo '\n# ADDED VIA ONBOARDING \nexport DOCKER_VHOSTS=drupal.docker' | tee -a  ~/.bash_profile
-echo '\n# ADDED VIA ONBOARDING \neval "$(docker-machine env default)"' | tee -a  ~/.bash_profile
-source ~/.bash_profile
+
 
 ## MAKE SURE WE GET DOCKER-COMPOSE 1.7+
 curl -L https://github.com/docker/compose/releases/download/1.7.0-rc1/docker-compose-`uname -s`-`uname -m` > /usr/local/bin/docker-compose
@@ -176,10 +174,10 @@ ln -s builds/build-$now/public www
 # drush dl drupal
 # mv drupal-* www
 # cd www
-docker exec -i drupaldevdocker_db_1 bash -c "mysql -u root -ppassword -e 'drop database drupal_docker;'"
-docker exec -i drupaldevdocker_db_1 bash -c "mysql -u root -ppassword -e 'create database drupal_docker;'"
-docker exec -i drupaldevdocker_php_1 bash -c "cd /docker/drupal_docker/www/ && drush site-install standard --account-name=admin --account-pass=admin --account-mail=dev@drupal.docker --site-name=DrupalDocker --site-mail=info@drupal.docker --db-url=mysql://root:password@db/drupal_docker -y"
-docker exec -i drupaldevdocker_php_1 bash -c "cd /docker/drupal_docker/www/ && drush en ckeditor search_api search_api_override facetapi redis -y"
+docker exec -i mysql bash -c "mysql -u root -ppassword -e 'drop database drupal_docker;'"
+docker exec -i mysql bash -c "mysql -u root -ppassword -e 'create database drupal_docker;'"
+docker exec -i php bash -c "cd /docker/drupal_docker/www/ && drush site-install standard --account-name=admin --account-pass=admin --account-mail=dev@drupal.docker --site-name=DrupalDocker --site-mail=info@drupal.docker --db-url=mysql://root:password@db/drupal_docker -y"
+docker exec -i php bash -c "cd /docker/drupal_docker/www/ && drush en ckeditor search_api search_api_override facetapi redis -y"
 
 # add files
 cd ~/infra/drupaldev-docker/
@@ -244,8 +242,6 @@ else
   fi
   echo "drupal.docker file added"
 fi
-
-echo -e '\n# ADDED VIA ONBOARDING \n192.168.99.100 drupal.docker' | tee -a /etc/hosts
 
 #reload nginx conf
 docker exec -i drupaldevdocker_web_1 /etc/init.d/nginx reload
