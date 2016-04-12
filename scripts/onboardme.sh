@@ -19,6 +19,9 @@ echo '\n# ADDED VIA ONBOARDING \neval "$(docker-machine env default)"' | sudo te
 echo '\n# ADDED VIA ONBOARDING \n192.168.99.100 drupal.docker' | tee -a /etc/hosts
 source ~/.bash_profile
 
+# # # install Drupal/PHP app dependencies Q: can we run this stuff without curl -sS https://getcomposer.org/installer | php
+curl -sS https://getcomposer.org/installer | sudo php -- --install-dir=/usr/local/bin --filename=composer
+
 # #
 # # Check if Homebrew is installed
 # #
@@ -45,10 +48,6 @@ fi
 # #
 which -s ssh-copy-id || curl -L https://raw.githubusercontent.com/beautifulcode/ssh-copy-id-for-OSX/master/install.sh | sh
 
-# # # install Drupal/PHP app dependencies Q: can we run this stuff without curl -sS https://getcomposer.org/installer | php
-mv composer.phar /usr/local/bin/composer
-composer global require drush/drush:7.1.0
-
 # #
 # # Check if Git is installed
 # #
@@ -73,6 +72,7 @@ if [[ $? != 0 ]] ; then
 fi
 
 ## more useful dev dependencies
+composer global require drush/drush:7.1.0
 which -s bower || npm install -g bower
 which -s gulp || npm install -g gulp
 
@@ -83,7 +83,7 @@ echo "############################################"
 ## Note : issue with multiple hostonly networks on same IP : VBoxManage list hostonlyifs || VBoxManage hostonlyif remove vboxnetXX
 which -s docker || brew cask install dockertoolbox
 cd ~/infra/drupaldev-docker/
-docker-machine rm default
+echo y | docker-machine rm default
 docker-machine create -d virtualbox --virtualbox-memory "8192" --virtualbox-cpu-count "2" --virtualbox-disk-size "80000" default
 
 
