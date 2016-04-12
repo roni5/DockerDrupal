@@ -10,11 +10,8 @@ services:
       - /var/run/docker.sock:/tmp/docker.sock:ro
       - ./mounts/conf/nginx/proxy/nginx.conf:/etc/nginx/nginx.conf
       - /tmp/nginx:/etc/nginx/conf.d
-    networks:
-      - frontend
-      - backend
     hostname: nginx-proxy
-    container_name: nginx-proxy
+    container_name: dev_nginxproxy
 
   dockergen:
     image: jwilder/docker-gen:latest
@@ -25,7 +22,7 @@ services:
       - nginx
     tty: true
     hostname: dockergen
-    container_name: dockergen
+    container_name: dev_dockergen
     command: >
       -watch
       -only-exposed
@@ -44,16 +41,14 @@ services:
       - MYSQL_USER=dev
       - MYSQL_PASSWORD=password
     hostname: db
-    container_name: mysql
-    networks:
-      - backend
+    container_name: dev_mysql
 
   php:
     image : 4alldigital/drupaldev-php
     ports :
      - "8022:22"
     volumes :
-      - ~/Sites/:/docker
+      - $APPS_PATH/:/docker
       - ./mounts/conf/php-fpm/cli-php.ini:/etc/php5/cli/php.ini
       - ./mounts/conf/php-fpm/php.ini:/etc/php5/fpm/php.ini
       - ./mounts/conf/php-fpm/conf.d:/etc/php5/fpm/conf.d
@@ -62,17 +57,14 @@ services:
       - drupal.docker:192.168.99.100
     tty : true
     hostname: php
-    container_name: php
-    networks:
-      - backend
+    container_name: dev_php
 
   mailcatcher:
     image : schickling/mailcatcher
     ports :
       - "1080:1080"
     hostname: mailcatcher
-    networks:
-      - backend
+    container_name: dev_mailcatcher
 
   nginx:
     image : 4alldigital/drupaldev-nginx
@@ -80,14 +72,13 @@ services:
       - "8088:80"
       - "4443:443"
     volumes :
-      - ~/Sites/:/docker
+      - $APPS_PATH:/docker
       - ./mounts/conf/nginx/nginx.conf:/etc/nginx/nginx.conf
       - ./mounts/conf/nginx/sites-enabled:/etc/nginx/sites-enabled
       - ./mounts/logs/supervisor:/var/log/supervisor
     env_file: nginx.env
     hostname: nginx
-    networks:
-      - backend
+    container_name: dev_nginx
 
   solr:
     image : 4alldigital/drupaldev-solr
@@ -96,9 +87,7 @@ services:
     volumes :
       - ./mounts/conf/solr:/opt/solr/example/solr
     hostname: solr
-    container_name: solr
-    networks:
-      - backend
+    container_name: dev_solr
 
   redis:
     image : 4alldigital/drupaldev-redis
@@ -108,25 +97,21 @@ services:
       - ./mounts/conf/redis/redis.conf:/etc/redis/redis.conf
       - ./mounts/conf/redis/sentinel.conf:/etc/redis/sentinel.conf
     hostname: redis
-    container_name: redis
-    networks:
-      - backend
+    container_name: dev_redis
 
   behat:
     image: 4alldigital/drupaldev-behat
     volumes:
       - ./mounts/conf/behat/docker.aliases.drushrc.php:/root/.drush/docker.aliases.drushrc.php
-      - ~/Sites/:/docker
-      - ~/Sites/tests/screenshots/:/var/tmp/screenshots
-      - ~/Sites/tests/tmp/:/tmp
+      - $APPS_PATH/:/docker
+      - $APPS_PATH/tests/screenshots/:/var/tmp/screenshots
+      - $APPS_PATH/tests/tmp/:/tmp
     environment:
       website: http://drupal.docker
     extra_hosts:
       - drupal.docker:192.168.99.100
     hostname: behat
-    container_name: behat
-    networks:
-      - backend
+    container_name: dev_behat
 
   selenium:
     image: selenium/hub
@@ -137,9 +122,7 @@ services:
     environment :
       - SE_OPTS=-debug
     hostname: selenium
-    container_name: selenium
-    networks:
-      - backend
+    container_name: dev_selenium
 
   firefox:
     image: selenium/node-firefox-debug
@@ -152,9 +135,7 @@ services:
       - HUB_PORT_4444_TCP_PORT=4444
       - REMOTE_HOST_PARAM=-maxSession 4 -browser browserName=firefox,maxInstances=4
     hostname: firefox
-    container_name: firefox
-    networks:
-      - backend
+    container_name: dev_firefox
 
   chrome:
     image: selenium/node-chrome-debug
@@ -167,14 +148,8 @@ services:
       - HUB_PORT_4444_TCP_PORT=4444
       - REMOTE_HOST_PARAM=-maxSession 4 -browser browserName=firefox,maxInstances=4
     hostname: chrome
-    container_name: chroms
-    networks:
-      - backend
+    container_name: dev_chrome
 
 volumes:
   mysql-data:
     driver: local
-networks:
-  frontend:
-  backend:
-    driver: bridge
