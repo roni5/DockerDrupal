@@ -84,7 +84,7 @@ echo "############################################"
 which -s docker || brew cask install dockertoolbox
 cd ~/infra/drupaldev-docker/
 echo y | docker-machine rm default
-docker-machine create -d virtualbox --virtualbox-memory "8192" --virtualbox-cpu-count "2" --virtualbox-disk-size "80000" default
+docker-machine create -d virtualbox --virtualbox-memory "4084" --virtualbox-cpu-count "2" --virtualbox-disk-size "80000" default
 
 ## MAKE SURE WE GET DOCKER-COMPOSE 1.7+
 curl -L https://github.com/docker/compose/releases/download/1.7.0-rc1/docker-compose-`uname -s`-`uname -m` > /usr/local/bin/docker-compose
