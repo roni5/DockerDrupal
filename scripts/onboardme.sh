@@ -203,6 +203,10 @@ else
   echo "settings.php file added"
 fi
 
+echo "Updating web root symlink"
+rm www
+ln -s builds/build-$now/public www
+
 # drush dl drupal
 # mv drupal-* www
 # cd www
