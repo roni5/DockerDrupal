@@ -12,12 +12,16 @@ echo "#################################"
 echo "${GREEN}INSTALL DEPENDENCIES${NC}"
 echo "#################################"
 
+echo '\n# ADDED VIA ONBOARDING \nexport PATH="$HOME/.composer/vendor/bin:$PATH"' | sudo tee -a  ~/.bash_profile
+echo '\n# ADDED VIA ONBOARDING \nexport DOCKER_VHOSTS=drupal.docker' | sudo tee -a  ~/.bash_profile
+echo '\n# ADDED VIA ONBOARDING \neval "$(docker-machine env default)"' | sudo tee -a  ~/.bash_profile
+echo '\n# ADDED VIA ONBOARDING \n192.168.99.100 drupal.docker' | tee -a /etc/hosts
 
 echo '\n# ADDED VIA ONBOARDING \nexport PATH="$HOME/.composer/vendor/bin:$PATH"' | sudo tee -a  ~/.bash_profile
 echo '\n# ADDED VIA ONBOARDING \nexport DOCKER_VHOSTS=drupal.docker' | sudo tee -a  ~/.bash_profile
 echo '\n# ADDED VIA ONBOARDING \neval "$(docker-machine env default)"' | sudo tee -a  ~/.bash_profile
 echo '\n# ADDED VIA ONBOARDING \n192.168.99.100 drupal.docker' | tee -a /etc/hosts
-echo '\n# ADDED VIA ONBOARDING \nexport APPS_PATH=~/Sites"' | sudo tee -a  ~/.bash_profile
+echo '\n# ADDED VIA ONBOARDING \nexport APPS_PATH=~/Sites' | sudo tee -a  ~/.bash_profile
 #echo '\n# ADDED VIA ONBOARDING \nexport LOCAL_FILESPATH=~/Sites/drupal_docker/shared/files"' | sudo tee -a  ~/.bash_profile
 #echo '\n# ADDED VIA ONBOARDING \nexport DOCKER_FILESPATH=/docker/drupal_docker/shared/files"' | sudo tee -a  ~/.bash_profile
 source ~/.bash_profile
