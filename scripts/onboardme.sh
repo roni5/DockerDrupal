@@ -101,7 +101,7 @@ fi
 
 ## MAKE SURE WE GET DOCKER-COMPOSE 1.7+
 docker-compose --version | grep 1.7
-if [[ $? = 0 ]] ; then
+if [[ $? != 0 ]] ; then
   curl -L https://github.com/docker/compose/releases/download/1.7.0-rc2/docker-compose-`uname -s`-`uname -m` > /usr/local/bin/docker-compose
   chmod +x /usr/local/bin/docker-compose
 fi
