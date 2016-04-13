@@ -174,7 +174,6 @@ fi
 ## eg : drush make repository/project.make.yml builds/build-2016-04-09--12-35-58/public
 drush make repository/project.make.yaml builds/build-$now/public
 
-
 echo "${GREEN}SYMLINK NEW DIRECTORIES${NC}"
 ln -s ../../../../../repository/themes builds/build-$now/public/sites/default/themes
 ln -s ../../../../../repository/modules builds/build-$now/public/sites/default/modules
@@ -183,7 +182,26 @@ ln -s ../../../../../shared/settings.local.php builds/build-$now/public/sites/de
 ln -s ../../../../../shared/files builds/build-$now/public/sites/default/files
 
 ## setup www
-ln -s builds/build-$now/public www
+settingsfile=builds/build-$now/public/sites/default/settings.php
+
+if ! [ ! -e "$settingsfile" ]
+then
+  echo "settings file already exists."
+else
+  if ! echo "<?php
+    \$update_free_access = FALSE;
+    \$drupal_hash_salt = '5vNH-JwuKOSlgzbJCL3FbXvNQNfd8Bz26SiadpFx6gE';
+    \$local_settings = dirname(__FILE__) . '/settings.local.php';
+    if (file_exists(\$local_settings)) {
+      require_once(\$local_settings);
+    }" > builds/build-$now/public/sites/default/settings.php
+  then
+            echo "ERROR: the virtual host could not be added."
+  else
+            echo "New virtual host added to the Apache vhosts file"
+  fi
+  echo "settings.php file added"
+fi
 
 # drush dl drupal
 # mv drupal-* www
