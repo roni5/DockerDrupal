@@ -17,6 +17,9 @@ echo '\n# ADDED VIA ONBOARDING \nexport PATH="$HOME/.composer/vendor/bin:$PATH"'
 echo '\n# ADDED VIA ONBOARDING \nexport DOCKER_VHOSTS=drupal.docker' | sudo tee -a  ~/.bash_profile
 echo '\n# ADDED VIA ONBOARDING \neval "$(docker-machine env default)"' | sudo tee -a  ~/.bash_profile
 echo '\n# ADDED VIA ONBOARDING \n192.168.99.100 drupal.docker' | tee -a /etc/hosts
+echo '\n# ADDED VIA ONBOARDING \nexport APPS_PATH=~/Sites"' | sudo tee -a  ~/.bash_profile
+#echo '\n# ADDED VIA ONBOARDING \nexport LOCAL_FILESPATH=~/Sites/drupal_docker/shared/files"' | sudo tee -a  ~/.bash_profile
+#echo '\n# ADDED VIA ONBOARDING \nexport DOCKER_FILESPATH=/docker/drupal_docker/shared/files"' | sudo tee -a  ~/.bash_profile
 source ~/.bash_profile
 
 # # # install Drupal/PHP app dependencies Q: can we run this stuff without curl -sS https://getcomposer.org/installer | php
@@ -83,11 +86,17 @@ echo "############################################"
 ## Note : issue with multiple hostonly networks on same IP : VBoxManage list hostonlyifs || VBoxManage hostonlyif remove vboxnetXX
 which -s docker || brew cask install dockertoolbox
 cd ~/infra/drupaldev-docker/
-echo y | docker-machine rm default
-docker-machine create -d virtualbox --virtualbox-memory "4084" --virtualbox-cpu-count "2" --virtualbox-disk-size "80000" default
+read -r -p "Do you want to dump you Docker machine and download all again? [y/N] " response
+if [[ $response =~ ^([yY][eE][sS]|[yY])$ ]]
+then
+    echo y | docker-machine rm default
+    docker-machine create -d virtualbox --virtualbox-memory "4084" --virtualbox-cpu-count "2" --virtualbox-disk-size "80000" default
+else
+    echo "Continuing......"
+fi
 
 ## MAKE SURE WE GET DOCKER-COMPOSE 1.7+
-curl -L https://github.com/docker/compose/releases/download/1.7.0-rc1/docker-compose-`uname -s`-`uname -m` > /usr/local/bin/docker-compose
+curl -L https://github.com/docker/compose/releases/download/1.7.0-rc2/docker-compose-`uname -s`-`uname -m` > /usr/local/bin/docker-compose
 chmod +x /usr/local/bin/docker-compose
 
 cp ~/infra/drupaldev-docker/settings/example-nginx.env ~/infra/drupaldev-docker/nginx.env
@@ -175,10 +184,10 @@ ln -s builds/build-$now/public www
 # drush dl drupal
 # mv drupal-* www
 # cd www
-docker exec -i mysql bash -c "mysql -u root -ppassword -e 'drop database drupal_docker;'"
-docker exec -i mysql bash -c "mysql -u root -ppassword -e 'create database drupal_docker;'"
-docker exec -i php bash -c "cd /docker/drupal_docker/www/ && drush site-install standard --account-name=admin --account-pass=admin --account-mail=dev@drupal.docker --site-name=DrupalDocker --site-mail=info@drupal.docker --db-url=mysql://root:password@db/drupal_docker -y"
-docker exec -i php bash -c "cd /docker/drupal_docker/www/ && drush en ckeditor search_api search_api_override facetapi redis -y"
+docker exec -i dev_mysql bash -c "mysql -u root -ppassword -e 'drop database drupal_docker;'"
+docker exec -i dev_mysql bash -c "mysql -u root -ppassword -e 'create database drupal_docker;'"
+docker exec -i dev_php bash -c "cd /docker/drupal_docker/www/ && drush site-install standard --account-name=admin --account-pass=admin --account-mail=dev@drupal.docker --site-name=DrupalDocker --site-mail=info@drupal.docker --db-url=mysql://root:password@db/drupal_docker -y"
+docker exec -i dev_php bash -c "cd /docker/drupal_docker/www/ && drush en ckeditor search_api search_api_override facetapi redis -y"
 
 # add files
 cd ~/infra/drupaldev-docker/
@@ -225,6 +234,10 @@ else
         return 404;
     }
 
+    location @rewrite {
+        rewrite ^/(.*)$ /index.php?q=$1;
+    }
+
     # Fighting with Styles? This little gem is amazing.
     location ~ ^/sites/.*/files/styles/ { # For Drupal >= 7
         try_files $uri @rewrite;
@@ -245,7 +258,7 @@ else
 fi
 
 #reload nginx conf
-docker exec -i drupaldevdocker_web_1 /etc/init.d/nginx reload
+docker exec -i dev_nginx /etc/init.d/nginx reload
 
 # launch in preferred browser
 python -mwebbrowser http://drupal.docker
