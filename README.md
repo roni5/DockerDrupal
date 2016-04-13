@@ -5,11 +5,11 @@
 # Get Started
 
   1. Open `Terminal` application
-  2. run ```mkdir -p ~/.infra```
-  3. run ``` cd ~/.infra```
+  2. run ```mkdir -p ~/infra```
+  3. run ``` cd ~/infra```
   4. run ``` git clone git@github.com:4alldigital/drupaldev-docker.git```
-  5. run ``` cd ~/.infra/drupaldev-docker/scripts```
-  6. run ``` sudo ./onboardme.sh```
+  5. run ``` cd ~/infra/drupaldev-docker```
+  6. run ``` sudo ./scripts/onboardme.sh```
 
 # Inside the box
 

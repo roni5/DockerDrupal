@@ -291,4 +291,7 @@ docker exec -i dev_nginx /etc/init.d/nginx reload
 
 # launch in preferred browser
 python -mwebbrowser http://drupal.docker
+python -mwebbrowser http://192.168.99.100:8983/solr/#/SITE
+python -mwebbrowser http://192.168.99.100:4444/grid/console
+python -mwebbrowser http://192.168.99.100:1080
 
