@@ -1,0 +1,19 @@
+version: "2"
+services:
+  php:
+    volumes :
+      - $APPS_PATH/hosting/4alldigital.io/shared/files:/docker/hosting/4alldigital.io/shared/files:rw
+      - $APPS_PATH/hosting/charity-news/shared/files:/docker/hosting/charity-news/shared/files:rw
+      - $APPS_PATH/hosting/imwearingit.co.uk/shared/files:/docker/hosting/imwearingit.co.uk/shared/files:rw
+      - $APPS_PATH/hosting/makeitclear.co.uk/shared/files:/docker/hosting/makeitclear.co.uk/shared/files:rw
+      - $APPS_PATH/hosting/play-associates.com/shared/files:/docker/hosting/play-associates.com/shared/files:rw
+      - $APPS_PATH/hosting/scrumqueens.com/shared/files:/docker/hosting/scrumqueens.com/shared/files:rw
+      #- $APPS_PATH/hosting/sophiemacpherson.com/shared/files:/docker/hosting/sophiemacpherson.com/shared/files:rw
+      #- $APPS_PATH/hosting/wordpress/shared/files:/docker/hosting/wordpress/shared/files:rw
+      #- $APPS_PATH/hosting/www.kamushki-jewellery.com/shared/files:/docker/hosting/www.kamushki-jewellery.com/shared/files:rw
+      - $APPS_PATH/hosting/yfcresources.co.uk/shared/files:/docker/hosting/yfcresources.co.uk/shared/files:rw
+      - $APPS_PATH/hosting/yfcresources.co.uk/shared/yfc_files:/docker/hosting/yfcresources.co.uk/www/sites/yfcresources.co.uk/files:rw
+      - $APPS_PATH/hosting/yfcresources.co.uk/shared/swe_files:/docker/hosting/yfcresources.co.uk/www/sites/sweden.yfcresources.com/files:rw
+      - $APPS_PATH/hosting/mrsalice.com/www/wp-content:/docker/hosting/mrsalice.com/www/wp-content:rw
+    container_name: dev_php_override
+    read_only: false

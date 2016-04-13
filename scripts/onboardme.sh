@@ -92,6 +92,8 @@ chmod +x /usr/local/bin/docker-compose
 
 cp ~/infra/drupaldev-docker/settings/example-nginx.env ~/infra/drupaldev-docker/nginx.env
 
+source  ~/.bash_profile
+
 docker-compose up -d
 
 echo "##################################################"
@@ -127,7 +129,7 @@ echo "${GREEN}BUILDING DIRECTORY STRUCTURE${NC}"
 file=shared/settings.local.php
 if ! [ ! -e "$file" ]
 then
-  echo "local.settings file already exists."
+  echo "settings.local.php file already exists."
 else
   cp ~/infra/drupaldev-docker/settings/drupal.settings.local.php shared/settings.local.php
 fi
@@ -135,7 +137,7 @@ fi
 file=repository/project.make.yaml
 if ! [ ! -e "$file" ]
 then
-  echo "local.settings file already exists."
+  echo "project.make.yaml file already exists."
 else
   cp ~/infra/drupaldev-docker/settings/project.make.yaml repository/project.make.yaml
 fi
@@ -143,18 +145,17 @@ fi
 file=repository/.gitignore
 if ! [ ! -e "$file" ]
 then
-  echo "local.settings file already exists."
+  echo "repository/.gitignore file already exists."
 else
   cp ~/infra/drupaldev-docker/settings/sample-gitignore.txt repository/.gitignore
 fi
 
-file=../shared/.gitignore
+file=./nginx.env
 if ! [ ! -e "$file" ]
 then
-  echo "local.settings file already exists."
+  echo "nginx.env file already exists."
 else
-  cp ~/infra/drupaldev-docker/scripts/drupaldocker-build.sh repository/scripts/
-  chmod +x repository/scripts/*
+  cp ~/infra/drupaldev-docker/settings/example-nginx.env ~/infra/drupaldev-docker/nginx.env
 fi
 
 ## eg : drush make repository/project.make.yml builds/build-2016-04-09--12-35-58/public
