@@ -9,7 +9,7 @@
   3. run ``` cd ~/infra```
   4. run ``` git clone git@github.com:4alldigital/drupaldev-docker.git```
   5. run ``` cd ~/infra/drupaldev-docker```
-  6. run ``` sudo ./scripts/onboardme.sh```
+  6. run ``` ./scripts/onboardme.sh```
 
 # Inside the box
 
