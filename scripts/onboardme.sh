@@ -1,33 +1,29 @@
 #!/bin/sh
 
-BLUE='\033[0;34m'
 GREEN='\033[0;32m'
 NC='\033[0m'
 
 now="$(date +'%Y-%m-%d--%H-%M-%S')"
 
 NODE_VERSION=v5.5.0
+DRUSH_VERSION=7.0
 
 echo "#################################"
 echo "${GREEN}INSTALL DEPENDENCIES${NC}"
 echo "#################################"
-
 echo '\n# ADDED VIA ONBOARDING \nexport PATH="$HOME/.composer/vendor/bin:$PATH"' | sudo tee -a  ~/.bash_profile
 echo '\n# ADDED VIA ONBOARDING \nexport DOCKER_VHOSTS=drupal.docker' | sudo tee -a  ~/.bash_profile
 echo '\n# ADDED VIA ONBOARDING \neval "$(docker-machine env default)"' | sudo tee -a  ~/.bash_profile
 echo '\n# ADDED VIA ONBOARDING \n192.168.99.100 drupal.docker' | tee -a /etc/hosts
-
 echo '\n# ADDED VIA ONBOARDING \nexport PATH="$HOME/.composer/vendor/bin:$PATH"' | sudo tee -a  ~/.bash_profile
 echo '\n# ADDED VIA ONBOARDING \nexport DOCKER_VHOSTS=drupal.docker' | sudo tee -a  ~/.bash_profile
 echo '\n# ADDED VIA ONBOARDING \neval "$(docker-machine env default)"' | sudo tee -a  ~/.bash_profile
 echo '\n# ADDED VIA ONBOARDING \n192.168.99.100 drupal.docker' | tee -a /etc/hosts
 echo '\n# ADDED VIA ONBOARDING \nexport APPS_PATH=~/Sites' | sudo tee -a  ~/.bash_profile
-#echo '\n# ADDED VIA ONBOARDING \nexport LOCAL_FILESPATH=~/Sites/drupal_docker/shared/files"' | sudo tee -a  ~/.bash_profile
-#echo '\n# ADDED VIA ONBOARDING \nexport DOCKER_FILESPATH=/docker/drupal_docker/shared/files"' | sudo tee -a  ~/.bash_profile
 source ~/.bash_profile
 
-# # # install Drupal/PHP app dependencies Q: can we run this stuff without curl -sS https://getcomposer.org/installer | php
-curl -sS https://getcomposer.org/installer | sudo php -- --install-dir=/usr/local/bin --filename=composer
+# # # install Drupal/PHP app dependencies Q: can we run this stuff without curl --progress-bar -sS https://getcomposer.org/installer | php
+curl --progress-bar -sS https://getcomposer.org/installer | sudo php -- --install-dir=/usr/local/bin --filename=composer
 
 # #
 # # Check if Homebrew is installed
@@ -39,7 +35,7 @@ if [[ $? != 0 ]] ; then
     echo "#################################"
     echo "${GREEN}INSTALLING HOMEBREW ${NC}"
     echo "#################################"
-    ruby -e "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install)"
+    ruby -e "$(curl --progress-bar -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install)"
 else
     #http://stackoverflow.com/a/12031907 - for info
     cd /usr/local
@@ -53,7 +49,7 @@ fi
 # # Check if SSH-COPY-ID is installed
 # # SSH-COPY-ID for OSX we will need later to ssh between containers
 # #
-which -s ssh-copy-id || curl -L https://raw.githubusercontent.com/beautifulcode/ssh-copy-id-for-OSX/master/install.sh | sh
+which -s ssh-copy-id || curl --progress-bar -L https://raw.githubusercontent.com/beautifulcode/ssh-copy-id-for-OSX/master/install.sh | sh
 
 # #
 # # Check if Git is installed
@@ -66,20 +62,18 @@ which -s git || brew install git
 echo "Checking for Node version ${NODE_VERSION}"
 node --version | grep ${NODE_VERSION}
 if [[ $? != 0 ]] ; then
-    # Install Node
     cd `brew --prefix`
     $(brew versions node | grep ${NODE_VERSION} | cut -c 16- -)
     brew uninstall node
     brew install node
-
-    # Reset Homebrew formulae versions
     git reset HEAD `brew --repository` && git checkout -- `brew --repository`
-# else
-#     brew link --overwrite node
 fi
 
-## more useful dev dependencies
-composer global require drush/drush:7.1.0
+echo "Checking for Drush version ${DRUSH_VERSION}"
+drush --version | grep ${DRUSH_VERSION}
+if [[ $? != 0 ]] ; then
+  composer global require drush/drush:7.1.0
+fi
 which -s bower || npm install -g bower
 which -s gulp || npm install -g gulp
 
@@ -96,13 +90,13 @@ then
     echo y | docker-machine rm default
     docker-machine create -d virtualbox --virtualbox-memory "4084" --virtualbox-cpu-count "2" --virtualbox-disk-size "80000" default
 else
-    echo "Continuing......"
+    docker-machine start
 fi
 
 ## MAKE SURE WE GET DOCKER-COMPOSE 1.7+
 docker-compose --version | grep 1.7
 if [[ $? != 0 ]] ; then
-  curl -L https://github.com/docker/compose/releases/download/1.7.0-rc2/docker-compose-`uname -s`-`uname -m` > /usr/local/bin/docker-compose
+  curl --progress-bar -L https://github.com/docker/compose/releases/download/1.7.0-rc2/docker-compose-`uname -s`-`uname -m` > /usr/local/bin/docker-compose
   chmod +x /usr/local/bin/docker-compose
 fi
 
@@ -117,35 +111,30 @@ echo "${GREEN}SETUP SITE DIRECTORIES INFRASTRUCTURE${NC}"
 echo "##################################################"
 
 mkdir -p ~/Sites
-
-## Vanilla Drupal for testing locally
 mkdir -p ~/Sites/drupal_docker/
 mkdir -p ~/Sites/drupal_docker/repository
-cd ~/Sites/drupal_docker/
-
 mkdir -p ~/Sites/drupal_docker/repository/themes
 mkdir -p ~/Sites/drupal_docker/repository/modules
 mkdir -p ~/Sites/drupal_docker/repository/modules/custom
 mkdir -p ~/Sites/drupal_docker/repository/modules/features
 mkdir -p ~/Sites/drupal_docker/repository/libraries
-
 mkdir -p ~/Sites/drupal_docker/repository/scripts
 
-# create folders
-echo "${GREEN}BUILDING DIRECTORY STRUCTURE${NC}"
+cd ~/Sites/drupal_docker/
 
-  # builds folder
+echo "##################################################"
+echo "${GREEN}BUILDING DIRECTORY STRUCTURE${NC}"
+echo "##################################################"
+
   mkdir -p builds
-  # shared folder
   mkdir -p shared
-  # files folder
   mkdir -p shared/files
 
 # add files
 file=shared/settings.local.php
 if ! [ ! -e "$file" ]
 then
-  echo "settings.local.php file already exists."
+    echo "#"
 else
   cp ~/infra/drupaldev-docker/settings/drupal.settings.local.php shared/settings.local.php
 fi
@@ -153,7 +142,7 @@ fi
 file=repository/project.make.yaml
 if ! [ ! -e "$file" ]
 then
-  echo "project.make.yaml file already exists."
+    echo "#"
 else
   cp ~/infra/drupaldev-docker/settings/project.make.yaml repository/project.make.yaml
 fi
@@ -161,7 +150,7 @@ fi
 file=repository/.gitignore
 if ! [ ! -e "$file" ]
 then
-  echo "repository/.gitignore file already exists."
+    echo "#"
 else
   cp ~/infra/drupaldev-docker/settings/sample-gitignore.txt repository/.gitignore
 fi
@@ -169,27 +158,27 @@ fi
 file=./nginx.env
 if ! [ ! -e "$file" ]
 then
-  echo "nginx.env file already exists."
+    echo "#"
 else
   cp ~/infra/drupaldev-docker/settings/example-nginx.env ~/infra/drupaldev-docker/nginx.env
 fi
 
-## eg : drush make repository/project.make.yml builds/build-2016-04-09--12-35-58/public
-drush make repository/project.make.yaml builds/build-$now/public
+drush make -q -y repository/project.make.yaml builds/build-$now/public
 
+echo "##################################################"
 echo "${GREEN}SYMLINK NEW DIRECTORIES${NC}"
+echo "##################################################"
+
 ln -s ../../../../../repository/themes builds/build-$now/public/sites/default/themes
 ln -s ../../../../../repository/modules builds/build-$now/public/sites/default/modules
 ln -s ../../../../../repository/libraries builds/build-$now/public/sites/default/libraries
 ln -s ../../../../../shared/settings.local.php builds/build-$now/public/sites/default/settings.local.php
 ln -s ../../../../../shared/files builds/build-$now/public/sites/default/files
-
-## setup www
 settingsfile=builds/build-$now/public/sites/default/settings.php
 
 if ! [ ! -e "$settingsfile" ]
 then
-  echo "settings file already exists."
+    echo "#"
 else
   if ! echo "<?php
     \$update_free_access = FALSE;
@@ -203,28 +192,21 @@ else
   else
             echo "New virtual host added to the Apache vhosts file"
   fi
-  echo "settings.php file added"
+    echo "#"
 fi
 
-echo "Updating web root symlink"
 rm www
 ln -s builds/build-$now/public www
-
-# drush dl drupal
-# mv drupal-* www
-# cd www
 docker exec -i dev_mysql bash -c "mysql -u root -ppassword -e 'drop database drupal_docker;'"
 docker exec -i dev_mysql bash -c "mysql -u root -ppassword -e 'create database drupal_docker;'"
 docker exec -i dev_php bash -c "cd /docker/drupal_docker/www/ && drush site-install standard --account-name=admin --account-pass=admin --account-mail=dev@drupal.docker --site-name=DrupalDocker --site-mail=info@drupal.docker --db-url=mysql://root:password@db/drupal_docker -y"
 docker exec -i dev_php bash -c "cd /docker/drupal_docker/www/ && drush en ckeditor search_api search_api_override facetapi redis -y"
-
-# add files
 cd ~/infra/drupaldev-docker/
 drupalfile=./mounts/conf/nginx/sites-enabled/drupal.docker
 
 if ! [ ! -e "$drupalfile" ]
 then
-  echo "drupal.docker already exists.."
+    echo "#"
 else
   if ! echo "server {
     listen   80;
@@ -279,11 +261,11 @@ else
 
 }" > ./mounts/conf/nginx/sites-enabled/drupal.docker
   then
-            echo "ERROR: the virtual host could not be added."
+    echo "#"
   else
-            echo "New virtual host added to the nginx sites-enabled directory"
+    echo "#"
   fi
-  echo "drupal.docker file added"
+    echo "#"
 fi
 
 #reload nginx conf
