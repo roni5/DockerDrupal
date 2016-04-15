@@ -1,2 +1,0 @@
-### Behat container configuration:
-

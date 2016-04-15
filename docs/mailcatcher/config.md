@@ -1,1 +1,0 @@
-### Mailcatcher container configuration:

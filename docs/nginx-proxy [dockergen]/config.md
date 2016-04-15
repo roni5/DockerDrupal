@@ -1,1 +1,0 @@
-### Nginx-proxy container configuration:
