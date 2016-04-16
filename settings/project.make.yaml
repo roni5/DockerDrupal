@@ -14,7 +14,7 @@ projects:
     version: '1.7'
   search_api:
     subdir: contrib
-    version: '1.16'
+    version: '1.17'
   search_api_override:
     subdir: contrib
     version: 1.0-rc1
