@@ -52,13 +52,27 @@ Behat is an open source Behavior Driven Development framework for PHP 5.3+.
 
 Visit [BEHAT V3.0](http://docs.behat.org/en/v3.0/) For more info...
 
-
-
 ### System Requirements
 
 Currently DrupalDocker is aimed at web development using MAC OSX:
   - Intel Core processor
   - 4+ GB RAM
+
+### Download information
+
+  In total the initial download may take in excess if an hour depending on your broadband speed.  Image sizes are outlined in the table below.
+
+  | Container                   | version | size     |
+  |-----------------------------|---------|----------|
+  | selenium/node-firefox-debug | latest  | 612.7 MB |
+  | selenium/node-chrome-debug  | latest  | 840.5 MB |
+  | selenium/hub                | latest  | 314.5 MB |
+  | 4alldigital/drupaldev-php   | latest  | 756.2 MB |
+  | 4alldigital/drupaldev-redis | latest  | 329.3 MB |
+  | 4alldigital/drupaldev-solr  | latest  | 1.183 GB |
+  | 4alldigital/drupaldev-php   | latest  | 692.5 MB |
+  | 4alldigital/drupaldev-nginx | latest  | 441.7 MB |
+  | 4alldigital/drupaldev-behat | latest  | 609.9 MB |
 
 ### License
 
@@ -67,3 +81,4 @@ This project is licensed under the MIT open source license.
 ### Why?!....
 
 We developed this becasue we love Docker and Drupal and think micor-service infrastructure is the way forward....  We hope you enjoy all or parts of the stack and value any feedback or contributions.
+
