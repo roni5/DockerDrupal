@@ -44,7 +44,7 @@ services:
     container_name: dev_mysql
 
   php:
-    image : 4alldigital/drupaldev-php:1.0.0
+    image : 4alldigital/drupaldev-php:latest
     ports :
      - "8022:22"
     volumes :
@@ -67,7 +67,7 @@ services:
     container_name: dev_mailcatcher
 
   nginx:
-    image : 4alldigital/drupaldev-nginx:1.0.0
+    image : 4alldigital/drupaldev-nginx:latest
     ports :
       - "8088:80"
       - "4443:443"
@@ -81,7 +81,7 @@ services:
     container_name: dev_nginx
 
   solr:
-    image : 4alldigital/drupaldev-solr:1.0.0
+    image : 4alldigital/drupaldev-solr:latest
     ports :
       - "8983:8983"
     volumes :
@@ -90,7 +90,7 @@ services:
     container_name: dev_solr
 
   redis:
-    image : 4alldigital/drupaldev-redis:1.0.0
+    image : 4alldigital/drupaldev-redis:latest
     ports :
       - "6379:6379"
     volumes :
