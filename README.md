@@ -4,8 +4,13 @@
 
 # Get Started
 
-  1. Open `Terminal` application
-  2. run :
+  PreRequisites:
+  1. Install GIT
+    1. Goto : http://ufpr.dl.sourceforge.net/project/git-osx-installer/git-2.6.4-intel-universal-mavericks.dmg
+    2. Run the installer
+
+  1. Open `Terminal.app` application in your /Applications/Utilities/ folder
+  2. From the command-line, copy and paste the following :
 
   ```
 
