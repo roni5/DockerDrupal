@@ -33,7 +33,7 @@ echo "#################################"
 echo "${GREEN}INSTALL DEPENDENCIES${NC}"
 echo "#################################"
 # # # install Drupal/PHP app dependencies Q: can we run this stuff without curl --progress-bar -sS https://getcomposer.org/installer | php
-curl --progress-bar -sS https://getcomposer.org/installer | sudo php -- --install-dir=/usr/local/bin --filename=composer
+which -s composer || curl --progress-bar -sS https://getcomposer.org/installer | sudo php -- --install-dir=/usr/local/bin --filename=composer
 
 # #
 # # Check if Homebrew is installed
