@@ -5,7 +5,7 @@ NC='\033[0m'
 
 now="$(date +'%Y-%m-%d--%H-%M-%S')"
 
-NODE_VERSION=v5.5.0
+NODE_VERSION=v5.6.0
 DRUSH_VERSION=7.0
 
 cat <<EOF
@@ -26,17 +26,12 @@ grep -q -F '.composer/vendor/bin' ~/.bash_profile || echo '\n# ADDED VIA ONBOARD
 grep -q -F 'export DOCKER_VHOSTS=drupal.docker' ~/.bash_profile || echo '\n# ADDED VIA ONBOARDING \nexport DOCKER_VHOSTS=drupal.docker' | sudo tee -a  ~/.bash_profile > /dev/null 2>&1
 grep -q -F 'eval "$(docker-machine env default)"' ~/.bash_profile || echo '\n# ADDED VIA ONBOARDING \neval "$(docker-machine env default)"' | sudo tee -a  ~/.bash_profile > /dev/null 2>&1
 grep -q -F 'APPS_PATH=~/Sites' ~/.bash_profile || echo '\n# ADDED VIA ONBOARDING \nexport APPS_PATH=~/Sites' | sudo tee -a  ~/.bash_profile > /dev/null 2>&1
-grep -q -F '192.168.99.100 drupal.docker' /etc/hosts || echo '\n# ADDED VIA ONBOARDING \n192.168.99.100 drupal.docker' | tee -a /etc/hosts > /dev/null 2>&1
+grep -q -F '192.168.99.100 drupal.docker' /etc/hosts || echo '\n# ADDED VIA ONBOARDING \n192.168.99.100 drupal.docker' | sudo tee -a /etc/hosts > /dev/null 2>&1
 source ~/.bash_profile
 
 echo "#################################"
 echo "${GREEN}INSTALL DEPENDENCIES${NC}"
 echo "#################################"
-# #
-# # Check if Composer is installed
-# #
-which -s composer || curl --progress-bar -sS https://getcomposer.org/installer | sudo php -- --install-dir=/usr/local/bin --filename=composer
-
 # #
 # # Check if Homebrew is installed
 # #
@@ -56,6 +51,11 @@ else
     sudo chown -R $USER /usr/local
     brew update
 fi
+
+# #
+# # Check if Composer is installed
+# #
+which -s composer || curl --progress-bar -sS https://getcomposer.org/installer | php -- --install-dir=/usr/local/bin --filename=composer
 
 # #
 # # Check if SSH-COPY-ID is installed
@@ -83,11 +83,8 @@ if [[ $? != 0 ]] ; then
 else
     node --version | grep ${NODE_VERSION}
     if [[ $? != 0 ]] ; then
-        cd `brew --prefix`
-        $(brew versions node | grep ${NODE_VERSION} | cut -c 16- -)
         brew uninstall node
         brew install node
-        git reset HEAD `brew --repository` && git checkout -- `brew --repository`
     fi
 fi
 
