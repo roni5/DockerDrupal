@@ -16,7 +16,7 @@
 
      mkdir -p ~/infra && \
      cd ~/infra && \
-     git clone git@github.com:4alldigital/drupaldev-docker.git && \
+     git clone https://github.com/4alldigital/drupaldev-docker.git && \
      cd ~/infra/drupaldev-docker && \
      time ./scripts/onboardme.sh
 
