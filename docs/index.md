@@ -64,15 +64,21 @@ Currently DrupalDocker is aimed at web development using MAC OSX:
 
   | Container                   | version | size     |
   |-----------------------------|---------|----------|
+  | selenium/hub                | latest  | 314.5 MB |
   | selenium/node-firefox-debug | latest  | 612.7 MB |
   | selenium/node-chrome-debug  | latest  | 840.5 MB |
-  | selenium/hub                | latest  | 314.5 MB |
+  | jwilder/nginx-proxy         | latest  | 254.5 MB |
+  | jwilder/docker-gen          | latest  | 96.16 MB |
+  | schickling/mailcatcher      | latest  | 267.1 MB |
+  | mariadb                     | latest  | 346.5 MB |
   | 4alldigital/drupaldev-php   | latest  | 756.2 MB |
   | 4alldigital/drupaldev-redis | latest  | 329.3 MB |
-  | 4alldigital/drupaldev-solr  | latest  | 1.183 GB |
+  | 4alldigital/drupaldev-solr  | latest  | 961 MB   |
   | 4alldigital/drupaldev-php   | latest  | 692.5 MB |
   | 4alldigital/drupaldev-nginx | latest  | 441.7 MB |
   | 4alldigital/drupaldev-behat | latest  | 609.9 MB |
+
+C. 6.5GB data
 
 ### License
 

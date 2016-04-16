@@ -8,9 +8,13 @@
   1. Install GIT
     1. Goto : http://ufpr.dl.sourceforge.net/project/git-osx-installer/git-2.6.4-intel-universal-mavericks.dmg
     2. Run the installer
+  2. Setup OSX EnergySaver settings in System Preferences to make sure your machine doesnt put hard-disks to sleep while `onboarding` script is running (May take more than 1 hour to complete initial download of all docker images from docker-hub).
 
   1. Open `Terminal.app` application in your /Applications/Utilities/ folder
-  2. From the command-line, copy and paste the following, and press return (NB: when prompted you will need to enter your admin password)  :
+  2. From the command-line, copy and paste the following, and press return
+    - Notes
+      1. When prompted you will need to enter your admin password
+      2. You may also need to install OSX command line tools if prompted
 
   ```
 

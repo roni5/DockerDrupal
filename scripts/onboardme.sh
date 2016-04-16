@@ -71,14 +71,24 @@ which -s git || brew install git
 # # #
 # # # Check if Node is installed and at the right version
 # # #
-echo "Checking for Node version ${NODE_VERSION}"
-node --version | grep ${NODE_VERSION}
+echo "Checking IF Node and for Node version ${NODE_VERSION}"
+which -s node
 if [[ $? != 0 ]] ; then
-    cd `brew --prefix`
-    $(brew versions node | grep ${NODE_VERSION} | cut -c 16- -)
-    brew uninstall node
-    brew install node
-    git reset HEAD `brew --repository` && git checkout -- `brew --repository`
+    # Install Homebrew
+    # https://github.com/mxcl/homebrew/wiki/installation
+    echo "#################################"
+    echo "${GREEN}INSTALLING HOMEBREW ${NC}"
+    echo "#################################"
+    ruby -e "$(curl --progress-bar -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install)"
+else
+    node --version | grep ${NODE_VERSION}
+    if [[ $? != 0 ]] ; then
+        cd `brew --prefix`
+        $(brew versions node | grep ${NODE_VERSION} | cut -c 16- -)
+        brew uninstall node
+        brew install node
+        git reset HEAD `brew --repository` && git checkout -- `brew --repository`
+    fi
 fi
 
 # # #
@@ -102,7 +112,7 @@ echo "############################################"
 # # #
 which -s docker || brew cask install dockertoolbox
 cd ~/infra/drupaldev-docker/
-read -t 20 -r -p "Do you want to dump you Docker machine and download everything again? [y/N] " response
+read -t 20 -r -p "Do you want to dump your Docker machine and download everything again? [y/N] " response
 if [[ $response =~ ^([yY][eE][sS]|[yY])$ ]] || [[ -z $response ]]
 then
     echo y | docker-machine rm default
@@ -219,6 +229,13 @@ fi
 
 rm www
 ln -s builds/build-$now/public www
+echo "##################################################"
+echo "${GREEN}       LIST RUNNING CONTAINERS       ${NC}"
+echo "##################################################"
+docker ps
+echo "##################################################"
+echo "##################################################"
+
 docker exec -i dev_mysql bash -c "mysql -u root -ppassword -e 'drop database drupal_docker;'"
 docker exec -i dev_mysql bash -c "mysql -u root -ppassword -e 'create database drupal_docker;'"
 docker exec -i dev_php bash -c "cd /docker/drupal_docker/www/ && drush site-install standard --account-name=admin --account-pass=admin --account-mail=dev@drupal.docker --site-name=DrupalDocker --site-mail=info@drupal.docker --db-url=mysql://root:password@db/drupal_docker -y"
