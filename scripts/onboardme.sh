@@ -95,9 +95,14 @@ fi
 # # # Check if Drush is installed and at the right version
 # # #
 echo "Checking for Drush version ${DRUSH_VERSION}"
-drush --version | grep ${DRUSH_VERSION}
+which -s drush
 if [[ $? != 0 ]] ; then
-  composer global require drush/drush:7.1.0
+    composer global require drush/drush:7.1.0
+else
+    drush --version | grep ${DRUSH_VERSION}
+    if [[ $? != 0 ]] ; then
+      composer global require drush/drush:7.1.0
+    fi
 fi
 which -s bower || npm install -g bower
 which -s gulp || npm install -g gulp
