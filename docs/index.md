@@ -13,9 +13,6 @@ MariaDB is one of the most popular database servers in the world. It’s made by
 
 Visit [MariaDB](https://mariadb.org) For more info...
 
-### Useful commands
- - docker exec -i dev_mysql tail -f /var/log/mysql/mysql.log
-
 ## NGINX
 NGINX is a free, open-source, high-performance HTTP server and reverse proxy, as well as an IMAP/POP3 proxy server.
 
@@ -35,10 +32,6 @@ Visit [APACHE SOLR V4.10.1](http://lucene.apache.org/solr/) For more info...
 MailCatcher runs a super simple SMTP server which catches any message sent to it to display in a web interface. Run mailcatcher, set your favourite app to deliver to smtp://192.168.99.100:1025 instead of your default SMTP server, then check out http://192.168.99.100:1080 to see the mail that's arrived so far.
 
 Visit [MAILCATCHER](https://mailcatcher.me) For more info...
-
-### Useful commands
- - docker exec -it dev_php bash -c "php -r \"mail('test@drupal.docker', 'test', 'test');\""
- - $ echo "My test email being sent from sendmail" | /usr/sbin/sendmail joe@4alldigital.com
 
 
 ## REDIS
