@@ -10,7 +10,7 @@
     2. Run the installer
 
   1. Open `Terminal.app` application in your /Applications/Utilities/ folder
-  2. From the command-line, copy and paste the following :
+  2. From the command-line, copy and paste the following, and press return (NB: when prompted you will need to enter your admin password)  :
 
   ```
 
@@ -18,11 +18,11 @@
      cd ~/infra && \
      git clone git@github.com:4alldigital/drupaldev-docker.git && \
      cd ~/infra/drupaldev-docker && \
-     ./scripts/onboardme.sh
+     time ./scripts/onboardme.sh
 
   ```
 
 
 # Read docs
 
-Visit http://dockerdrupal.readthedocs.org/en/latest/
+Our work-in-progress documentation will live on readthedocs.org from now on. Visit http://dockerdrupal.readthedocs.org/en/latest
