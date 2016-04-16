@@ -8,20 +8,30 @@ now="$(date +'%Y-%m-%d--%H-%M-%S')"
 NODE_VERSION=v5.5.0
 DRUSH_VERSION=7.0
 
+cat <<EOF
+
+  _  _        _    _ _    ____  _       _ _        _
+ | || |      / \  | | |  |  _ \(_) __ _(_) |_ __ _| |
+ | || |_    / _ \ | | |  | | | | |/ _  | | __/ _  | |
+ |__   _|  / ___ \| | |  | |_| | | (_| | | || (_| | |
+    |_|   /_/   \_\_|_|  |____/|_|\__, |_|\__\__,_|_|
+                                  |___/
+
+EOF
+
+echo "#################################"
+echo "${GREEN} ADD VARS AND CONFIG TO ./bash_profile ${NC}"
+echo "#################################"
+echo '\n# ADDED VIA ONBOARDING \nexport PATH="$HOME/.composer/vendor/bin:$PATH"' | sudo tee -a  ~/.bash_profile > /dev/null 2>&1
+echo '\n# ADDED VIA ONBOARDING \nexport DOCKER_VHOSTS=drupal.docker' | sudo tee -a  ~/.bash_profile > /dev/null 2>&1
+echo '\n# ADDED VIA ONBOARDING \neval "$(docker-machine env default)"' | sudo tee -a  ~/.bash_profile > /dev/null 2>&1
+echo '\n# ADDED VIA ONBOARDING \n192.168.99.100 drupal.docker' | tee -a /etc/hosts > /dev/null 2>&1
+echo '\n# ADDED VIA ONBOARDING \nexport APPS_PATH=~/Sites' | sudo tee -a  ~/.bash_profile > /dev/null 2>&1
+source ~/.bash_profile
+
 echo "#################################"
 echo "${GREEN}INSTALL DEPENDENCIES${NC}"
 echo "#################################"
-echo '\n# ADDED VIA ONBOARDING \nexport PATH="$HOME/.composer/vendor/bin:$PATH"' | sudo tee -a  ~/.bash_profile
-echo '\n# ADDED VIA ONBOARDING \nexport DOCKER_VHOSTS=drupal.docker' | sudo tee -a  ~/.bash_profile
-echo '\n# ADDED VIA ONBOARDING \neval "$(docker-machine env default)"' | sudo tee -a  ~/.bash_profile
-echo '\n# ADDED VIA ONBOARDING \n192.168.99.100 drupal.docker' | tee -a /etc/hosts
-echo '\n# ADDED VIA ONBOARDING \nexport PATH="$HOME/.composer/vendor/bin:$PATH"' | sudo tee -a  ~/.bash_profile
-echo '\n# ADDED VIA ONBOARDING \nexport DOCKER_VHOSTS=drupal.docker' | sudo tee -a  ~/.bash_profile
-echo '\n# ADDED VIA ONBOARDING \neval "$(docker-machine env default)"' | sudo tee -a  ~/.bash_profile
-echo '\n# ADDED VIA ONBOARDING \n192.168.99.100 drupal.docker' | tee -a /etc/hosts
-echo '\n# ADDED VIA ONBOARDING \nexport APPS_PATH=~/Sites' | sudo tee -a  ~/.bash_profile
-source ~/.bash_profile
-
 # # # install Drupal/PHP app dependencies Q: can we run this stuff without curl --progress-bar -sS https://getcomposer.org/installer | php
 curl --progress-bar -sS https://getcomposer.org/installer | sudo php -- --install-dir=/usr/local/bin --filename=composer
 
@@ -69,6 +79,9 @@ if [[ $? != 0 ]] ; then
     git reset HEAD `brew --repository` && git checkout -- `brew --repository`
 fi
 
+# # #
+# # # Check if Drush is installed and at the right version
+# # #
 echo "Checking for Drush version ${DRUSH_VERSION}"
 drush --version | grep ${DRUSH_VERSION}
 if [[ $? != 0 ]] ; then
@@ -82,10 +95,13 @@ echo "${GREEN}INSTALL DOCKER AND DEPENDENCIES${NC}"
 echo "############################################"
 
 ## Note : issue with multiple hostonly networks on same IP : VBoxManage list hostonlyifs || VBoxManage hostonlyif remove vboxnetXX
+# # #
+# # # Check if Docker is installed and at the right version
+# # #
 which -s docker || brew cask install dockertoolbox
 cd ~/infra/drupaldev-docker/
-read -r -p "Do you want to dump you Docker machine and download all again? [y/N] " response
-if [[ $response =~ ^([yY][eE][sS]|[yY])$ ]]
+read -t 20 -r -p "Do you want to dump you Docker machine and download everything again? [y/N] " response
+if [[ $response =~ ^([yY][eE][sS]|[yY])$ ]] || [[ -z $response ]]
 then
     echo y | docker-machine rm default
     docker-machine create -d virtualbox --virtualbox-memory "4084" --virtualbox-cpu-count "2" --virtualbox-disk-size "80000" default
@@ -93,7 +109,9 @@ else
     docker-machine start
 fi
 
-## MAKE SURE WE GET DOCKER-COMPOSE 1.7+
+# # #
+# # # Check if Docker Compose is installed and at the right version (1.7+)
+# # #
 docker-compose --version | grep 1.7
 if [[ $? != 0 ]] ; then
   curl --progress-bar -L https://github.com/docker/compose/releases/download/1.7.0-rc2/docker-compose-`uname -s`-`uname -m` > /usr/local/bin/docker-compose
@@ -101,9 +119,11 @@ if [[ $? != 0 ]] ; then
 fi
 
 cp ~/infra/drupaldev-docker/settings/example-nginx.env ~/infra/drupaldev-docker/nginx.env
-
 source  ~/.bash_profile
 
+# # #
+# # # Pull and start containers
+# # #
 docker-compose up -d
 
 echo "##################################################"
@@ -166,7 +186,7 @@ fi
 drush make -q -y repository/project.make.yaml builds/build-$now/public
 
 echo "##################################################"
-echo "${GREEN}SYMLINK NEW DIRECTORIES${NC}"
+echo "${GREEN}       SYMLINK NEW DIRECTORIES       ${NC}"
 echo "##################################################"
 
 ln -s ../../../../../repository/themes builds/build-$now/public/sites/default/themes
