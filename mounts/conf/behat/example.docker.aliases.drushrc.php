@@ -12,10 +12,10 @@
 //   'ssh-options' => '-p 8022', // optional if required
 // );
 
-$aliases['the_platform'] = array (
+$aliases['drupal_docker'] = array (
   'uri' => 'http://default',
-  'root' => '/docker/the_platform/www',
-  'remote-host' => 'the.platform',
+  'root' => '/docker/drupal_docker',
+  'remote-host' => 'drupal.docker',
   'remote-user' => 'root',
   'ssh-options' => '-p 8022', // optional if required
 );

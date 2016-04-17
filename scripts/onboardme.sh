@@ -189,12 +189,28 @@ else
   cp ~/infra/drupaldev-docker/settings/sample-gitignore.txt repository/.gitignore
 fi
 
-file=./nginx.env
+file=~/infra/drupaldev-docker/nginx.env
 if ! [ ! -e "$file" ]
 then
     echo "#"
 else
   cp ~/infra/drupaldev-docker/settings/example-nginx.env ~/infra/drupaldev-docker/nginx.env
+fi
+
+file=./repository/tests/behat.yml
+if ! [ ! -e "$file" ]
+then
+    echo "#"
+else
+  cp -R ~/infra/drupaldev-docker/settings/tests repository/
+fi
+
+file=~/infra/drupaldev-docker/mounts/conf/behat/docker.aliases.drushrc.php
+if ! [ ! -e "$file" ]
+then
+    echo "#"
+else
+  cp ~/infra/drupaldev-docker/settings/docker.aliases.drushrc.php ~/infra/drupaldev-docker/mounts/conf/behat/docker.aliases.drushrc.php
 fi
 
 drush make -q -y repository/project.make.yaml builds/build-$now/public
