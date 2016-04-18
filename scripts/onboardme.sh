@@ -1,7 +1,7 @@
 #!/bin/sh
 
 GREEN='\033[0;32m'
-LIGHTBLUE='\033[0;92m'
+LIGHTBLUE='\033[0;94m'
 NC='\033[0m'
 
 now="$(date +'%Y-%m-%d--%H-%M-%S')"
@@ -23,7 +23,7 @@ EOF
 echo "${NC}"
 
 echo "${LIGHTBLUE}#######################################${NC}"
-echo "${LIGHTBLUE} \e[1mADD VARS AND CONFIG TO ./bash_profile \e[21m${NC}"
+echo "${LIGHTBLUE} ADD VARS AND CONFIG TO ./bash_profile ${NC}"
 echo "${LIGHTBLUE}#######################################${NC}"
 grep -q -F '.composer/vendor/bin' ~/.bash_profile || echo '\n# ADDED VIA ONBOARDING \nexport PATH="$HOME/.composer/vendor/bin:$PATH"' | sudo tee -a  ~/.bash_profile > /dev/null 2>&1
 grep -q -F 'export DOCKER_VHOSTS=drupal.docker' ~/.bash_profile || echo '\n# ADDED VIA ONBOARDING \nexport DOCKER_VHOSTS=drupal.docker' | sudo tee -a  ~/.bash_profile > /dev/null 2>&1
