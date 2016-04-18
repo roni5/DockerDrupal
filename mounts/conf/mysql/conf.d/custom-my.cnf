@@ -33,6 +33,8 @@ max_binlog_size     = 100M
 max_connections = 300
 max_user_connections = 300
 query_cache_type = 1
+wait_timeout=28800
+interactive_timeout = 28800
 
 # Uncomment if needed (mysql query logging)
 general_log_file        = /var/log/mysql/mysql.log

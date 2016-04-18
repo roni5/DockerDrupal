@@ -1,13 +1,15 @@
 #!/bin/sh
 
 GREEN='\033[0;32m'
+LIGHTBLUE='\033[0;92m'
 NC='\033[0m'
 
 now="$(date +'%Y-%m-%d--%H-%M-%S')"
 
-NODE_VERSION=v5.6.0
+NODE_VERSION=v5.10.1
 DRUSH_VERSION=7.0
 
+echo "${LIGHTBLUE}"
 cat <<EOF
 
   _  _        _    _ _    ____  _       _ _        _
@@ -18,10 +20,11 @@ cat <<EOF
                                   |___/
 
 EOF
+echo "${NC}"
 
-echo "#################################"
-echo "${GREEN} ADD VARS AND CONFIG TO ./bash_profile ${NC}"
-echo "#################################"
+echo "${LIGHTBLUE}#######################################${NC}"
+echo "${LIGHTBLUE} \e[1mADD VARS AND CONFIG TO ./bash_profile \e[21m${NC}"
+echo "${LIGHTBLUE}#######################################${NC}"
 grep -q -F '.composer/vendor/bin' ~/.bash_profile || echo '\n# ADDED VIA ONBOARDING \nexport PATH="$HOME/.composer/vendor/bin:$PATH"' | sudo tee -a  ~/.bash_profile > /dev/null 2>&1
 grep -q -F 'export DOCKER_VHOSTS=drupal.docker' ~/.bash_profile || echo '\n# ADDED VIA ONBOARDING \nexport DOCKER_VHOSTS=drupal.docker' | sudo tee -a  ~/.bash_profile > /dev/null 2>&1
 grep -q -F 'eval "$(docker-machine env default)"' ~/.bash_profile || echo '\n# ADDED VIA ONBOARDING \neval "$(docker-machine env default)"' | sudo tee -a  ~/.bash_profile > /dev/null 2>&1
@@ -29,9 +32,9 @@ grep -q -F 'APPS_PATH=~/Sites' ~/.bash_profile || echo '\n# ADDED VIA ONBOARDING
 grep -q -F '192.168.99.100 drupal.docker' /etc/hosts || echo '\n# ADDED VIA ONBOARDING \n192.168.99.100 drupal.docker' | sudo tee -a /etc/hosts > /dev/null 2>&1
 source ~/.bash_profile
 
-echo "#################################"
-echo "${GREEN}INSTALL DEPENDENCIES${NC}"
-echo "#################################"
+echo "${LIGHTBLUE}####################${NC}"
+echo "${LIGHTBLUE}INSTALL DEPENDENCIES${NC}"
+echo "${LIGHTBLUE}####################${NC}"
 # #
 # # Check if Homebrew is installed
 # #
@@ -39,9 +42,9 @@ which -s brew
 if [[ $? != 0 ]] ; then
     # Install Homebrew
     # https://github.com/mxcl/homebrew/wiki/installation
-    echo "#################################"
-    echo "${GREEN}INSTALLING HOMEBREW ${NC}"
-    echo "#################################"
+    echo "${LIGHTBLUE}####################${NC}"
+    echo "${LIGHTBLUE}INSTALLING HOMEBREW ${NC}"
+    echo "${LIGHTBLUE}####################${NC}"
     ruby -e "$(curl --progress-bar -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install)"
 else
     #http://stackoverflow.com/a/12031907 - for info
@@ -71,20 +74,18 @@ which -s git || brew install git
 # # #
 # # # Check if Node is installed and at the right version
 # # #
-echo "Checking IF Node and for Node version ${NODE_VERSION}"
+echo "Checking if NVM && Node and for Node version ${NODE_VERSION}"
+nvm --version || curl -o- https://raw.githubusercontent.com/creationix/nvm/v0.31.0/install.sh | bash
+nvm list
+nvm ls-remote
 which -s node
 if [[ $? != 0 ]] ; then
-    # Install Homebrew
-    # https://github.com/mxcl/homebrew/wiki/installation
-    echo "#################################"
-    echo "${GREEN}INSTALLING HOMEBREW ${NC}"
-    echo "#################################"
-    ruby -e "$(curl --progress-bar -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install)"
-else
     node --version | grep ${NODE_VERSION}
     if [[ $? != 0 ]] ; then
-        brew uninstall node
-        brew install node
+        nvm install 5.10.1
+        nvm use 5.10.1
+        nvm alias default 5.10.1
+        npm install -g npm
     fi
 fi
 
@@ -101,12 +102,13 @@ else
       composer global require drush/drush:7.1.0
     fi
 fi
+
 which -s bower || npm install -g bower
 which -s gulp || npm install -g gulp
 
-echo "############################################"
-echo "${GREEN}INSTALL DOCKER AND DEPENDENCIES${NC}"
-echo "############################################"
+echo "${LIGHTBLUE}###############################${NC}"
+echo "${LIGHTBLUE}INSTALL DOCKER AND DEPENDENCIES${NC}"
+echo "${LIGHTBLUE}###############################${NC}"
 
 ## Note : issue with multiple hostonly networks on same IP : VBoxManage list hostonlyifs || VBoxManage hostonlyif remove vboxnetXX
 # # #
@@ -140,9 +142,9 @@ source  ~/.bash_profile
 # # #
 docker-compose up -d
 
-echo "##################################################"
-echo "${GREEN}SETUP SITE DIRECTORIES INFRASTRUCTURE${NC}"
-echo "##################################################"
+echo "${LIGHTBLUE}#####################################${NC}"
+echo "${LIGHTBLUE}SETUP SITE DIRECTORIES INFRASTRUCTURE${NC}"
+echo "${LIGHTBLUE}#####################################${NC}"
 
 mkdir -p ~/Sites
 mkdir -p ~/Sites/drupal_docker/
@@ -156,9 +158,9 @@ mkdir -p ~/Sites/drupal_docker/repository/scripts
 
 cd ~/Sites/drupal_docker/
 
-echo "##################################################"
-echo "${GREEN}BUILDING DIRECTORY STRUCTURE${NC}"
-echo "##################################################"
+echo "${LIGHTBLUE}#####################################${NC}"
+echo "${LIGHTBLUE}    BUILDING DIRECTORY STRUCTURE     ${NC}"
+echo "${LIGHTBLUE}#####################################${NC}"
 
   mkdir -p builds
   mkdir -p shared
@@ -215,9 +217,9 @@ fi
 
 drush make -q -y repository/project.make.yaml builds/build-$now/public
 
-echo "##################################################"
-echo "${GREEN}       SYMLINK NEW DIRECTORIES       ${NC}"
-echo "##################################################"
+echo "${LIGHTBLUE}#####################################${NC}"
+echo "${LIGHTBLUE}       SYMLINK NEW DIRECTORIES       ${NC}"
+echo "${LIGHTBLUE}#####################################${NC}"
 
 ln -s ../../../../../repository/themes builds/build-$now/public/sites/default/themes
 ln -s ../../../../../repository/modules builds/build-$now/public/sites/default/modules
@@ -247,14 +249,14 @@ fi
 
 rm www
 ln -s builds/build-$now/public www
-echo "##################################################"
-echo "${GREEN}       LIST RUNNING CONTAINERS       ${NC}"
-echo "##################################################"
+echo "${LIGHTBLUE}#####################################${NC}"
+echo "${LIGHTBLUE}       LIST RUNNING CONTAINERS       ${NC}"
+echo "${LIGHTBLUE}#####################################${NC}"
 source  ~/.bash_profile
 docker ps
 sleep 15s
-echo "##################################################"
-echo "##################################################"
+echo "${LIGHTBLUE}##################################################${NC}"
+echo "${LIGHTBLUE}##################################################${NC}"
 
 docker exec -i dev_mysql bash -c "mysql -u root -ppassword -e 'drop database drupal_docker;'"
 docker exec -i dev_mysql bash -c "mysql -u root -ppassword -e 'create database drupal_docker;'"
