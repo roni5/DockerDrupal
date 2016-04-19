@@ -88,7 +88,6 @@ if [[ $? != 0 ]] ; then
         nvm alias default 5.10.1
         npm install -g npm
         source ~/.bash_profile
-        source ~/.bashrc
     fi
 fi
 
