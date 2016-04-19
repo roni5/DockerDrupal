@@ -45,7 +45,7 @@ if [[ $? != 0 ]] ; then
     echo "${LIGHTBLUE}####################${NC}"
     echo "${LIGHTBLUE}INSTALLING HOMEBREW ${NC}"
     echo "${LIGHTBLUE}####################${NC}"
-    ruby -e "$(curl --progress-bar -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install)"
+    yes '' | ruby -e "$(curl --progress-bar -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install)"
 else
     #http://stackoverflow.com/a/12031907 - for info
     cd /usr/local
@@ -86,6 +86,8 @@ if [[ $? != 0 ]] ; then
         nvm use 5.10.1
         nvm alias default 5.10.1
         npm install -g npm
+        source ~/.bash_profile
+        source ~/.bashrc
     fi
 fi
 
