@@ -29,6 +29,7 @@ grep -q -F '.composer/vendor/bin' ~/.bash_profile || echo '\n# ADDED VIA ONBOARD
 grep -q -F 'export DOCKER_VHOSTS=drupal.docker' ~/.bash_profile || echo '\n# ADDED VIA ONBOARDING \nexport DOCKER_VHOSTS=drupal.docker' | sudo tee -a  ~/.bash_profile > /dev/null 2>&1
 grep -q -F 'eval "$(docker-machine env default)"' ~/.bash_profile || echo '\n# ADDED VIA ONBOARDING \neval "$(docker-machine env default)"' | sudo tee -a  ~/.bash_profile > /dev/null 2>&1
 grep -q -F 'APPS_PATH=~/Sites' ~/.bash_profile || echo '\n# ADDED VIA ONBOARDING \nexport APPS_PATH=~/Sites' | sudo tee -a  ~/.bash_profile > /dev/null 2>&1
+grep -q -F 'This loads NVM' ~/.bash_profile || echo '\n# ADDED VIA ONBOARDING \n[[ -s $HOME/.nvm/nvm.sh ]] && . $HOME/.nvm/nvm.sh  # This loads NVM' | sudo tee -a  ~/.bash_profile > /dev/null 2>&1
 grep -q -F '192.168.99.100 drupal.docker' /etc/hosts || echo '\n# ADDED VIA ONBOARDING \n192.168.99.100 drupal.docker' | sudo tee -a /etc/hosts > /dev/null 2>&1
 source ~/.bash_profile
 
