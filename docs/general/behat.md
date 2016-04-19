@@ -23,3 +23,8 @@
     2. ```$ docker exec -it dev_behat behat --config /docker/drupal_docker/repository/tests/behat.yml --suite global_features --profile local --tags login```
 
 
+$ drush [options] <command> [argument1] [argument2]
+
+```
+$options['uri'] = "http://example.com";
+```
