@@ -114,7 +114,7 @@ services:
     container_name: dev_behat
 
   selenium:
-    image: selenium/hub:2.52.0
+    image: selenium/hub:2.53.0
     ports:
       - 4444:4444
     volumes :
