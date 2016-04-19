@@ -5,7 +5,7 @@
 ### Useful commands
   1. restart Behat container
 
-   $ docker restart dev_behat
+   $ ```docker restart dev_behat```
 
   2. Launch the Behat debug VNC
 
