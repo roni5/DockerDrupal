@@ -114,7 +114,7 @@ services:
     container_name: dev_behat
 
   selenium:
-    image: selenium/hub
+    image: selenium/hub:2.52.0
     ports:
       - 4444:4444
     volumes :
@@ -125,20 +125,20 @@ services:
     container_name: dev_selenium
 
   firefox:
-    image: selenium/node-firefox-debug
+    image: selenium/node-firefox-debug:2.52.0
     ports:
       - 5900
     extra_hosts:
       - drupal.docker:192.168.99.100
     environment:
       - HUB_PORT_4444_TCP_ADDR=selenium
-      - HUB_PORT_4444_TCP_PORT=4444
+      - HUB_PORT_4444_TCP_PORT=4444 b
       - REMOTE_HOST_PARAM=-maxSession 4 -browser browserName=firefox,maxInstances=4
     hostname: firefox
     container_name: dev_firefox
 
   chrome:
-    image: selenium/node-chrome-debug
+    image: selenium/node-chrome-debug:2.52.0
     ports:
       - 5901
     extra_hosts:
