@@ -20,7 +20,7 @@ Usage
 
    ```docker restart dev_behat```
 
-  2. Launch the Behat debug VNC
+  2. Launch the Behat debug VNC (edit : This is not currently used in the :latest version as there is a pending bug with the Selenium node-debug containers launching)
 
     1. This will inspect the docker container and server the internal docker port mapping for the externally accesible 5900 port:
 
