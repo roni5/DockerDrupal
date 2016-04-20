@@ -1,6 +1,6 @@
 ![DockerDrupal Logo](https://raw.githubusercontent.com/4alldigital/drupaldev-docker/master/docs/images/drupal-docker-logo-monochrome.png)
 
-[DockerDrupal](https://www.4alldigital.io/docker-drupal) is Docker based development environment for local Drupal development. Useful for debugging and developing with an intention to host sites using [DrupalDockerProd]
+[DockerDrupal](https://www.4alldigital.io/docker-drupal) is Docker based development environment for local Drupal websites, Wordpress websites or PHP apps. Useful for debugging and developing your projects, with a possible intention of hosting sites using [DockerDrupal Prod](https://github.com/4alldigital/drupalprod-docker) (A read-only production environment).
 
 # Get Started
 
