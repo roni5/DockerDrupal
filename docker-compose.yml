@@ -103,7 +103,7 @@ services:
     image: 4alldigital/drupaldev-behat
     volumes:
       - ./mounts/conf/behat/docker.aliases.drushrc.php:/root/.drush/docker.aliases.drushrc.php
-      - ./mounts/conf/redis/php/conf.d/20-redis.ini:/etc/php5/apache2/conf.d/20-redis.ini
+      - ./mounts/conf/behat/php/conf.d/20-redis.ini:/etc/php5/apache2/conf.d/20-redis.ini
       - $APPS_PATH/:/docker
       - $APPS_PATH/tests/screenshots/:/var/tmp/screenshots
       - $APPS_PATH/tests/tmp/:/tmp
