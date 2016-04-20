@@ -15,6 +15,8 @@
     - Notes
       1. When prompted you will need to enter your admin password
       2. You may also need to install OSX command line tools if prompted
+      3. I've tried to write the onboardme.sh script in a way in which, should your connection get interrupted or the session end for any reason, you can rerun ```time ./scripts/onboardme.sh```, answer the prompts and it will re-run, ignoring what ahs alreayd been installed.
+      4. The full initial download of all the docekr images/layers is in excess of 5GB, so installation time will vary greatly depending on your internet/broadband speed.  Anywhere from 10 minutes to 1 hour is possible.
 
   ```
 
