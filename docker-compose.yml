@@ -125,7 +125,7 @@ services:
     container_name: dev_selenium
 
   firefox:
-    image: selenium/node-firefox-debug
+    image: selenium/node-firefox
     ports:
       - 5900
     extra_hosts:
@@ -138,7 +138,7 @@ services:
     container_name: dev_firefox
 
   chrome:
-    image: selenium/node-chrome-debug
+    image: selenium/node-chrome
     ports:
       - 5901
     extra_hosts:
