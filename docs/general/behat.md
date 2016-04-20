@@ -24,9 +24,9 @@ Usage
 
     1. This will inspect the docker container and server the internal docker port mapping for the externally accesible 5900 port:
 
-    ```$(docker inspect --format '{{ (index (index .NetworkSettings.Ports "5900/tcp") 0).HostPort }}' dev_firefox)```
+    ```docker inspect --format '{{ (index (index .NetworkSettings.Ports "5900/tcp") 0).HostPort }}' dev_firefox```
 
-    2. Now we can comnine this with triggering OSX's screensharing VNC with:
+    2. Now we can combine this with triggering OSX's screensharing VNC with:
 
     ```open vnc://:secret@192.168.99.100:$(docker inspect --format '{{ (index (index .NetworkSettings.Ports "5900/tcp") 0).HostPort }}' dev_firefox)```
 
