@@ -27,6 +27,10 @@
 
   ```
 
+# What next?
+
+  At the end of the script, 4 browser tabs should be open, with mailcatcher, SOLR, Selenium Grid and a demo Drupal install running.  First off, we'd check out the way the demo Drupla site is set up, and try to reproduce your own.
+
 
 # Read docs
 
