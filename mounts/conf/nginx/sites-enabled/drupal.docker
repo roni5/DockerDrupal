@@ -8,7 +8,7 @@ server {
     client_max_body_size 20M;
 
     index index.php index.html;
-    server_name drupal.docker;
+    server_name drupal.docker drupaldocker.dev drupaldocker.dev.192.168.99.100.xip.io;
     error_log  /var/log/nginx/drupal.error.log;
     access_log /var/log/nginx/drupal.access.log;
     root /docker/drupal_docker/www/;

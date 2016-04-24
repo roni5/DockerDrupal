@@ -3,7 +3,7 @@
 
 ### Useful info
 
-  1. If your local site has an external SMTP server hooked, eg. using drupal Mailsystem/SMTP contrib modules, this will bypass Mailcatcher, so it's always a good idea to anonymise your database a sa rule of thumb.  You can do this using ```drush sql-sanitize```(http://drushcommands.com/drush-7x/sql/sql-sanitize/) or using a direct sql query like the following:
+  1. If your local site has an external SMTP server hooked, eg. using drupal Mailsystem/SMTP contrib modules, this will bypass Mailcatcher, so it's always a good idea to anonymise your database a sa rule of thumb.  You can do this using `drush sql-sanitize` (http://drushcommands.com/drush-7x/sql/sql-sanitize/) or using a direct sql query like the following:
 
   ```
   UPDATE users SET
