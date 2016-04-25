@@ -29,10 +29,9 @@
 # What next?
 
 DockerDrupal currently utilise the following containers:
-
  1.https://hub.docker.com/r/4alldigital/drupaldev-php
- 2.https://hub.docker.com/r/4alldigital/drupaldev-redis
- 3.https://hub.docker.com/r/4alldigital/drupaldev-behat
+ 1.https://hub.docker.com/r/4alldigital/drupaldev-redis
+ 1.https://hub.docker.com/r/4alldigital/drupaldev-behat
  4.https://hub.docker.com/r/4alldigital/drupaldev-nginx
  5.https://hub.docker.com/r/4alldigital/drupaldev-solr
  6.https://hub.docker.com/r/selenium/hub
