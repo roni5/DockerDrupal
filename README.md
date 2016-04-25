@@ -56,7 +56,7 @@ DockerDrupal currently utilise the following containers:
 
 
 
-  At the end of the `onboardme` script, 4 browser tabs should be open, with mailcatcher, SOLR, Selenium Grid and a demo Drupal install running.  First off, we'd check out the way the demo Drupla site is set up, and try to reproduce your own.
+  At the end of the `onboardme` script, 4 browser tabs should be open, with mailcatcher, SOLR, Selenium Grid and a demo Drupal install running.  First off, we'd check out the way the demo Drupal site is set up, and try to reproduce your own.
 
 
 # Read docs
