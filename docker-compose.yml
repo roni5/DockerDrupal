@@ -99,6 +99,8 @@ services:
       - ./mounts/conf/redis/sentinel.conf:/etc/redis/sentinel.conf
     hostname: redis
     container_name: dev_redis
+    mem_limit: 100000000
+    memswap_limit: 2000000000
 
   behat:
     image: 4alldigital/drupaldev-behat

@@ -29,7 +29,23 @@
 
 # What next?
 
-  At the end of the script, 4 browser tabs should be open, with mailcatcher, SOLR, Selenium Grid and a demo Drupal install running.  First off, we'd check out the way the demo Drupla site is set up, and try to reproduce your own.
+  DockerDrupal currently utilise the following containers:
+
+  1.https://hub.docker.com/r/4alldigital/drupaldev-php
+  2.https://hub.docker.com/r/4alldigital/drupaldev-redis
+  3.https://hub.docker.com/r/4alldigital/drupaldev-behat
+  4.https://hub.docker.com/r/4alldigital/drupaldev-nginx
+  5.https://hub.docker.com/r/4alldigital/drupaldev-solr
+  6.https://hub.docker.com/r/selenium/hub
+  7.https://hub.docker.com/r/selenium/node-chrome-debug
+  8.https://hub.docker.com/r/selenium/node-firefox-debug
+  9.https://hub.docker.com/r/schickling/mailcatcher
+  10.https://hub.docker.com/r/_/mariadb
+  11.https://hub.docker.com/r/jwilder/docker-gen
+  12.https://hub.docker.com/r/rckrdstrgrd/nginx-proxy
+
+
+  At the end of the `onboardme` script, 4 browser tabs should be open, with mailcatcher, SOLR, Selenium Grid and a demo Drupal install running.  First off, we'd check out the way the demo Drupla site is set up, and try to reproduce your own.
 
 
 # Read docs
