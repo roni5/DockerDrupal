@@ -1,0 +1,59 @@
+server {
+  listen 8080;
+  root /data/server2;
+
+  location / {
+  }
+}
+
+error_log  /var/log/nginx/server1/error.log;
+    access_log /var/log/nginx/server1/access.log;
+
+
+server {
+  listen 9091;
+  root /data/backend1;
+}
+server {
+  listen 9092;
+  root /data/backend2;
+}
+server {
+  listen 9093;
+  root /data/backend3;
+}
+
+upstream myServers{
+  server 127.0.0.1:9091
+  server 127.0.0.1:9092
+  server 127.0.0.1:9093
+}
+
+server {
+  listen 8081;
+  root /home/student33/public_html;
+
+  error_log  /var/log/nginx/myServers.error.log info;
+  access_log /var/log/nginx/myServers.access.log combined;
+
+  location / {
+    proxy_pass http://myServers;
+  }
+}
+
+server {
+  listen 9090;
+  root /usr/share/nginx/html;
+
+  location = /status {
+    status;
+  }
+}
+
+  location / {
+    proxy_pass http://myServers;
+    health_check match=health_conditions fails=2;
+
+  }
+
+proxy_cache_path /data/nginx/cache2 levels=1:2 cache_zone=upstreamCache:10m inactive=10m max_size=60m;

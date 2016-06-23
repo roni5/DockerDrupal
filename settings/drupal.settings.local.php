@@ -6,8 +6,8 @@
 $databases['default']['default'] = array(
   'driver' => 'mysql',
   'host' => 'db',
-  'username' => 'root',
-  'password' => 'password',
+  'username' => 'dev',
+  'password' => 'DEVPASSWORD',
   'database' => 'drupal_docker',
   'prefix' => '',
 );

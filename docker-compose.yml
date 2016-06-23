@@ -1,8 +1,7 @@
 version: "2"
 services:
   nginx-proxy:
-#    image: jwilder/nginx-proxy
-    image: rckrdstrgrd/nginx-proxy
+    image: jwilder/nginx-proxy
     ports:
       - '80:80'
       - '443:443'
@@ -36,10 +35,7 @@ services:
       - ./mounts/conf/mysql/conf.d:/etc/mysql/conf.d
     ports :
       - "3306:3306"
-    environment :
-      - MYSQL_ROOT_PASSWORD=password
-      - MYSQL_USER=dev
-      - MYSQL_PASSWORD=password
+    env_file: mysql.env
     hostname: db
     container_name: dev_mysql
 
@@ -55,6 +51,9 @@ services:
       - ./mounts/conf/php-fpm/pool.d/www.conf:/etc/php5/fpm/pool.d/www.conf
     extra_hosts:
       - drupal.docker:192.168.99.100
+    dns:
+      - 8.8.8.8
+      - 8.8.4.4
     tty : true
     hostname: php
     container_name: dev_php
@@ -78,6 +77,9 @@ services:
       - ./mounts/conf/nginx/supervisord.conf:/etc/supervisor/conf.d/supervisord.conf
       - ./mounts/logs/supervisor:/var/log/supervisor
     env_file: nginx.env
+    dns:
+      - 8.8.8.8
+      - 8.8.4.4
     hostname: nginx
     container_name: dev_nginx
 

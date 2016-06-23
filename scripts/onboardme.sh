@@ -26,11 +26,9 @@ echo "${LIGHTBLUE}#######################################${NC}"
 echo "${LIGHTBLUE} ADD VARS AND CONFIG TO ./bash_profile ${NC}"
 echo "${LIGHTBLUE}#######################################${NC}"
 grep -q -F '.composer/vendor/bin' ~/.bash_profile || echo '\n# ADDED VIA ONBOARDING \nexport PATH="$HOME/.composer/vendor/bin:$PATH"' | sudo tee -a  ~/.bash_profile > /dev/null 2>&1
-grep -q -F 'export DOCKER_VHOSTS=drupal.docker' ~/.bash_profile || echo '\n# ADDED VIA ONBOARDING \nexport DOCKER_VHOSTS=drupal.docker' | sudo tee -a  ~/.bash_profile > /dev/null 2>&1
-grep -q -F 'eval "$(docker-machine env default)"' ~/.bash_profile || echo '\n# ADDED VIA ONBOARDING \neval "$(docker-machine env default)"' | sudo tee -a  ~/.bash_profile > /dev/null 2>&1
 grep -q -F 'APPS_PATH=~/Sites' ~/.bash_profile || echo '\n# ADDED VIA ONBOARDING \nexport APPS_PATH=~/Sites' | sudo tee -a  ~/.bash_profile > /dev/null 2>&1
 grep -q -F 'This loads NVM' ~/.bash_profile || echo '\n# ADDED VIA ONBOARDING \n[[ -s $HOME/.nvm/nvm.sh ]] && . $HOME/.nvm/nvm.sh  # This loads NVM' | sudo tee -a  ~/.bash_profile > /dev/null 2>&1
-grep -q -F '192.168.99.100 drupal.docker' /etc/hosts || echo '\n# ADDED VIA ONBOARDING \n192.168.99.100 drupal.docker' | sudo tee -a /etc/hosts > /dev/null 2>&1
+grep -q -F '127.0.0.1 drupal.docker' /etc/hosts || echo '\n# ADDED VIA ONBOARDING \n127.0.0.1 drupal.docker' | sudo tee -a /etc/hosts > /dev/null 2>&1
 source ~/.bash_profile
 
 echo "${LIGHTBLUE}####################${NC}"
@@ -112,28 +110,12 @@ echo "${LIGHTBLUE}###############################${NC}"
 echo "${LIGHTBLUE}INSTALL DOCKER AND DEPENDENCIES${NC}"
 echo "${LIGHTBLUE}###############################${NC}"
 
-## Note : issue with multiple hostonly networks on same IP : VBoxManage list hostonlyifs || VBoxManage hostonlyif remove vboxnetXX
-# # #
-# # # Check if Docker is installed and at the right version
-# # #
-which -s docker || brew cask install dockertoolbox
-cd ~/infra/drupaldev-docker/
-read -t 20 -r -p "Do you want to dump your Docker machine and download everything again? [y/N] " response
-if [[ $response =~ ^([yY][eE][sS]|[yY])$ ]] || [[ -z $response ]]
-then
-    echo y | docker-machine rm default
-    docker-machine create -d virtualbox --virtualbox-memory "4084" --virtualbox-cpu-count "2" --virtualbox-disk-size "80000" default
-else
-    docker-machine start
-fi
-
-# # #
-# # # Check if Docker Compose is installed and at the right version (1.7+)
-# # #
-docker-compose --version | grep 1.7
-if [[ $? != 0 ]] ; then
-  curl --progress-bar -L https://github.com/docker/compose/releases/download/1.7.0-rc2/docker-compose-`uname -s`-`uname -m` > /usr/local/bin/docker-compose
-  chmod +x /usr/local/bin/docker-compose
+if [ ! -d /Applications/Docker.app/ ]; then
+  echo "installing DockerForMac"
+  cd ~/infra/
+  curl --progress-bar -O https://download.docker.com/mac/beta/Docker.dmg
+  hdiutil attach Docker.dmg
+  cp -R /Volumes/Docker/Docker.app /Applications/
 fi
 
 cp ~/infra/drupaldev-docker/settings/example-nginx.env ~/infra/drupaldev-docker/nginx.env
@@ -262,7 +244,7 @@ echo "${LIGHTBLUE}##################################################${NC}"
 
 docker exec -i dev_mysql bash -c "mysql -u root -ppassword -e 'drop database drupal_docker;'"
 docker exec -i dev_mysql bash -c "mysql -u root -ppassword -e 'create database drupal_docker;'"
-docker exec -i dev_php bash -c "cd /docker/drupal_docker/www/ && drush site-install standard --account-name=admin --account-pass=admin --account-mail=dev@drupal.docker --site-name=DrupalDocker --site-mail=info@drupal.docker --db-url=mysql://root:password@db/drupal_docker -y"
+docker exec -i dev_php bash -c "cd /docker/drupal_docker/www/ && drush site-install standard --account-name=admin --account-pass=admin --account-mail=dev@drupal.docker --site-name=DrupalDocker --site-mail=info@drupal.docker --db-url=mysql://root:ROOTPASSWORD@db/drupal_docker -y"
 docker exec -i dev_php bash -c "cd /docker/drupal_docker/www/ && drush en ckeditor search_api search_api_override facetapi redis -y"
 cd ~/infra/drupaldev-docker/
 drupalfile=./mounts/conf/nginx/sites-enabled/drupal.docker
