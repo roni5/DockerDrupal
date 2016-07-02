@@ -3,10 +3,10 @@ server {
     listen   [::]:80;
 
     index index.php index.html;
-    server_name drupal.docker drupaldocker.dev drupaldocker.dev.192.168.99.100.xip.io;
+    server_name drupal.docker drupaldocker.dev;
     error_log  /var/log/nginx/drupal.error.log;
     access_log /var/log/nginx/drupal.access.log;
-    root /docker/drupal-8.1.3/;
+    root /docker/drupal_docker/www/;
 
     ## GENERIC
     sendfile off;
