@@ -80,6 +80,8 @@ services:
     dns:
       - 8.8.8.8
       - 8.8.4.4
+    extra_hosts:
+      - drupal.docker:192.168.99.100
     hostname: nginx
     container_name: dev_nginx
 
@@ -138,6 +140,7 @@ services:
     environment:
       - HUB_PORT_4444_TCP_ADDR=selenium
       - HUB_PORT_4444_TCP_PORT=4444
+      - no_proxy=localhost
       - REMOTE_HOST_PARAM=-maxSession 4 -browser browserName=firefox,maxInstances=4
     hostname: firefox
     container_name: dev_firefox
@@ -151,6 +154,7 @@ services:
     environment:
       - HUB_PORT_4444_TCP_ADDR=selenium
       - HUB_PORT_4444_TCP_PORT=4444
+      - no_proxy=localhost
       - REMOTE_HOST_PARAM=-maxSession 4 -browser browserName=firefox,maxInstances=4
     hostname: chrome
     container_name: dev_chrome
