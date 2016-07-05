@@ -7,7 +7,7 @@ NC='\033[0m'
 now="$(date +'%Y-%m-%d--%H-%M-%S')"
 
 NODE_VERSION=v5.10.1
-DRUSH_VERSION=7.0
+DRUSH_VERSION=8.1
 
 echo "${LIGHTBLUE}"
 cat <<EOF
@@ -95,11 +95,11 @@ fi
 echo "Checking for Drush version ${DRUSH_VERSION}"
 which -s drush
 if [[ $? != 0 ]] ; then
-    composer global require drush/drush:7.1.0
+    composer global require drush/drush:${DRUSH_VERSION}
 else
     drush --version | grep ${DRUSH_VERSION}
     if [[ $? != 0 ]] ; then
-      composer global require drush/drush:7.1.0
+      composer global require drush/drush:${DRUSH_VERSION}
     fi
 fi
 
@@ -116,6 +116,7 @@ if [ ! -d /Applications/Docker.app/ ]; then
   curl --progress-bar -O https://download.docker.com/mac/beta/Docker.dmg
   hdiutil attach Docker.dmg
   cp -R /Volumes/Docker/Docker.app /Applications/
+  open -a /Applications/Docker.app
 fi
 
 cp ~/infra/drupaldev-docker/settings/example-nginx.env ~/infra/drupaldev-docker/nginx.env
@@ -318,7 +319,7 @@ docker exec -i dev_nginx /etc/init.d/nginx reload
 
 # launch in preferred browser
 python -mwebbrowser http://drupal.docker
-python -mwebbrowser http://192.168.99.100:8983/solr/#/SITE
-python -mwebbrowser http://192.168.99.100:4444/grid/console
-python -mwebbrowser http://192.168.99.100:1080
+python -mwebbrowser http://localhost:8983/solr/#/SITE
+python -mwebbrowser http://localhost:4444/grid/console
+python -mwebbrowser http://localhost:1080
 

@@ -149,3 +149,8 @@ images/php70/
 
 # .env is local nginx config such as vhosts needed to nginx-proxy frontend -> backend. is required, but will not be version controlled
 *.env
+.log
+
+logs/supervisord.log
+
+*.log

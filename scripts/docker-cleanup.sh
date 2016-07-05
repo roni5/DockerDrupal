@@ -12,10 +12,10 @@ cat <<EOF
 EOF
 
 ## take backup of all DBs
-docker exec -i drupaldevdocker_db_1 bash -c "mysqldump --all-databases > /etc/mysql/conf.d/all_databases.sql"
+docker exec -i dev_mysql bash -c "mysqldump --all-databases > /etc/mysql/conf.d/all_databases.sql"
 
-## re-omport when ready if required
-mysql -u root -ppassword < all_databases.sql
+## re-import when ready if required
+## mysql -u root -ppassword < all_databases.sql
 
 ## cleanup docker images and containers and volumes
 docker rmi $(docker images -f "dangling=true" -q)
