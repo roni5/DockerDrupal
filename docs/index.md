@@ -29,7 +29,7 @@ Solr is the popular, blazing-fast, open source enterprise search platform built 
 Visit [APACHE SOLR V4.10.1](http://lucene.apache.org/solr/) For more info...
 
 ## MAILCATCHER
-MailCatcher runs a super simple SMTP server which catches any message sent to it to display in a web interface. Run mailcatcher, set your favourite app to deliver to smtp://192.168.99.100:1025 instead of your default SMTP server, then check out http://192.168.99.100:1080 to see the mail that's arrived so far.
+MailCatcher runs a super simple SMTP server which catches any message sent to it to display in a web interface. Run mailcatcher, set your favourite app to deliver to smtp://localhost:1025 instead of your default SMTP server, then check out http://localhost:1080 to see the mail that's arrived so far.
 
 Visit [MAILCATCHER](https://mailcatcher.me) For more info...
 
@@ -43,7 +43,7 @@ Visit [REDIS](http://redis.io) For more info...
 Selenium automates browsers. That's it! What you do with that power is entirely up to you. Primarily, it is for automating web applications for testing purposes, but is certainly not limited to just that. Boring web-based administration tasks can (and should!) also be automated as well.
 
 ### Configuration:
- - To view your running Selenium grid visit http://192.168.99.100:4444/wd/hub in a browser once you local dev environment is fully set up and your containers are all running.
+ - To view your running Selenium grid visit http://localhost:4444/wd/hub in a browser once you local dev environment is fully set up and your containers are all running.
 
 Visit [SELENIUM](http://www.seleniumhq.org) For more info...
 

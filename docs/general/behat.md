@@ -28,7 +28,7 @@ Usage
 
     2. Now we can combine this with triggering OSX's screensharing VNC with:
 
-    ```open vnc://:secret@192.168.99.100:$(docker inspect --format '{{ (index (index .NetworkSettings.Ports "5900/tcp") 0).HostPort }}' dev_firefox)```
+    ```open vnc://:secret@localhost:$(docker inspect --format '{{ (index (index .NetworkSettings.Ports "5900/tcp") 0).HostPort }}' dev_firefox)```
 
   3. Run demo tests:
 
