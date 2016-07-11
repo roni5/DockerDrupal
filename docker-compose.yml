@@ -124,8 +124,8 @@ services:
     image: selenium/hub
     ports:
       - 4444:4444
-    volumes :
-      - /e2e/uploads:/e2e/uploads
+    # volumes :
+    #   - /e2e/uploads:/e2e/uploads
     environment :
       - SE_OPTS=-debug
     hostname: selenium
