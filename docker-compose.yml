@@ -40,7 +40,6 @@ services:
     container_name: dev_mysql
 
   php:
-    #build : drupaldev-php7/
     image : 4alldigital/drupaldev-php:latest
     ports :
      - "8022:22"
@@ -50,8 +49,6 @@ services:
       - ./mounts/conf/php-fpm/php.ini:/etc/php5/fpm/php.ini
       - ./mounts/conf/php-fpm/conf.d:/etc/php5/fpm/conf.d
       - ./mounts/conf/php-fpm/pool.d/www.conf:/etc/php5/fpm/pool.d/www.conf
-    # extra_hosts:
-    #   - drupal.docker:192.168.99.100
     dns:
       - 8.8.8.8
       - 8.8.4.4
@@ -81,8 +78,6 @@ services:
     dns:
       - 8.8.8.8
       - 8.8.4.4
-    # extra_hosts:
-    #   - drupal.docker:192.168.99.100
     hostname: nginx
     container_name: dev_nginx
 
@@ -116,8 +111,6 @@ services:
       - $APPS_PATH/tests/tmp/:/tmp
     environment:
       website: http://drupal.docker
-    # extra_hosts:
-    #   - drupal.docker:192.168.99.100
     hostname: behat
     container_name: dev_behat
 
@@ -125,8 +118,6 @@ services:
     image: selenium/hub
     ports:
       - 4444:4444
-    #volumes :
-    #  - /e2e/uploads:/e2e/uploads
     environment :
       - SE_OPTS=-debug
     hostname: selenium
@@ -136,8 +127,6 @@ services:
     image: selenium/node-firefox-debug
     ports:
       - 5900
-    # extra_hosts:
-    #   - drupal.docker:192.168.99.100
     environment:
       - HUB_PORT_4444_TCP_ADDR=selenium
       - HUB_PORT_4444_TCP_PORT=4444
@@ -150,8 +139,6 @@ services:
     image: selenium/node-chrome-debug
     ports:
       - 5901
-    # extra_hosts:
-    #   - drupal.docker:192.168.99.100
     environment:
       - HUB_PORT_4444_TCP_ADDR=selenium
       - HUB_PORT_4444_TCP_PORT=4444
