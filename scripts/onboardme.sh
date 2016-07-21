@@ -55,6 +55,8 @@ source  ~/.bash_profile
 # # #
 docker-compose up -d
 
+sleep 15s
+
 # launch in preferred browser
 python -mwebbrowser http://localhost:8983/solr/#/SITE
 python -mwebbrowser http://localhost:4444/grid/console
