@@ -2,7 +2,7 @@ core: 7.x
 api: '2'
 projects:
   drupal:
-    version: '7.43'
+    version: '7.50'
   ckeditor:
     subdir: contrib
     version: "1.17"
@@ -14,7 +14,7 @@ projects:
     version: '1.7'
   search_api:
     subdir: contrib
-    version: '1.17'
+    version: '1.20'
   search_api_override:
     subdir: contrib
     version: 1.0-rc1
