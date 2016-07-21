@@ -29,6 +29,8 @@ else
     brew update
 fi
 
+source ~/.bash_profile
+
 # # #
 # # # Check if Node is installed and at the right version
 # # #
