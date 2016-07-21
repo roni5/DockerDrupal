@@ -2,11 +2,10 @@
 
 [DockerDrupal](https://www.4alldigital.io/docker-drupal) is Docker based development environment for local Drupal websites, Wordpress websites or PHP apps. Useful for debugging and developing your projects, with a possible intention of hosting sites using [DockerDrupal Prod](https://github.com/4alldigital/drupalprod-docker) (A read-only production environment).
 
-# Get Started
-
   ### PreRequisites
   1. Git
   2. Basic understanding of bash/command-line
+
 
   ### Set up Docker Environment
   1. Install [Docker for Mac](https://docs.docker.com/docker-for-mac)
@@ -20,6 +19,7 @@
    docker-compose up -d
 
   ```
+
 
   ### Setup Basic Drupal 7 site
   1. Open `Terminal.app` application in your /Applications/Utilities/ folder
