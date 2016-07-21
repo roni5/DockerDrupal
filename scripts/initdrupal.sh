@@ -59,6 +59,7 @@ fi
 echo "Checking for Drush version ${DRUSH_VERSION}"
 which -s drush
 if [[ $? != 0 ]] ; then
+    composer global update
     composer global require drush/drush:${DRUSH_VERSION}
 else
     drush --version | grep ${DRUSH_VERSION}
