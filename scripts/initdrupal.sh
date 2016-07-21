@@ -6,6 +6,9 @@ NC='\033[0m'
 
 now="$(date +'%Y-%m-%d--%H-%M-%S')"
 
+NODE_VERSION=v5.10.1
+DRUSH_VERSION=8.1
+
 echo "${LIGHTBLUE}####################${NC}"
 echo "${LIGHTBLUE}INSTALL DEPENDENCIES${NC}"
 echo "${LIGHTBLUE}####################${NC}"
@@ -114,14 +117,6 @@ then
     echo "#"
 else
   cp ~/infra/drupaldev-docker/settings/sample-gitignore.txt repository/.gitignore
-fi
-
-file=~/infra/drupaldev-docker/nginx.env
-if ! [ ! -e "$file" ]
-then
-    echo "#"
-else
-  cp ~/infra/drupaldev-docker/settings/example-nginx.env ~/infra/drupaldev-docker/nginx.env
 fi
 
 file=./repository/tests/behat.yml
