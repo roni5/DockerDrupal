@@ -4,27 +4,35 @@
 
 # Get Started
 
-  PreRequisites:
-  1. Install GIT
-    1. Goto : http://ufpr.dl.sourceforge.net/project/git-osx-installer/git-2.6.4-intel-universal-mavericks.dmg
-    2. Run the installer
+  ###PreRequisites:
+  1. Git
+  2. Docker
+  3. Basic understanding of bash/command-line
+
+  ###Set up Docker Environment
+  1. Install [Docker for Mac](https://docs.docker.com/docker-for-mac)
+  2. In terminal paste and run the following:
+
+  ```
+   mkdir -p ~/infra && \
+   cd ~/infra && \
+   git clone https://github.com/4alldigital/drupaldev-docker.git && \
+   cd ~/infra/drupaldev-docker && \
+   docker-compose up -d
+
+  ```
+
+  ###Setup Basic Drupal 7 site
   1. Open `Terminal.app` application in your /Applications/Utilities/ folder
-  2. From the command-line, copy and paste the following, and press return
-    - Notes
-      1. When prompted you will need to enter your admin password
-      2. You may also need to install OSX command line tools if prompted
-      3. I've tried to write the onboardme.sh script in a way in which, should your connection get interrupted or the session end for any reason, you can rerun ```time ./scripts/onboardme.sh```, answer the prompts and it will re-run, ignoring what has already been installed.
-      4. The full initial download of all the Docker images/layers is in excess of 5GB, so installation time will vary greatly depending on your internet/broadband speed.  Anywhere from 10 minutes to 1 hour is possible.
+  2. From the command-line run the following:
 
   ```
-
-     mkdir -p ~/infra && \
-     cd ~/infra && \
-     git clone https://github.com/4alldigital/drupaldev-docker.git && \
      cd ~/infra/drupaldev-docker && \
-     caffeinate -i time ./scripts/onboardme.sh
+     ./scripts/initdrupal.sh
 
   ```
+
+  At the end of the `initdrupal` script, 4 browser tabs should be open, with mailcatcher, SOLR, Selenium Grid and a demo Drupal install running.  First off, we'd check out the way the demo Drupal site is set up, and try to reproduce your own.
 
 # What next?
 
@@ -53,10 +61,6 @@ DockerDrupal currently utilise the following containers:
  11. https://hub.docker.com/r/jwilder/docker-gen
 
  12. https://hub.docker.com/r/jwilder/nginx-proxy
-
-
-
-  At the end of the `onboardme` script, 4 browser tabs should be open, with mailcatcher, SOLR, Selenium Grid and a demo Drupal install running.  First off, we'd check out the way the demo Drupal site is set up, and try to reproduce your own.
 
 
 # Read docs
