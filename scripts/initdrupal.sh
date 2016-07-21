@@ -255,6 +255,3 @@ docker exec -i dev_nginx /etc/init.d/nginx reload
 
 # launch in preferred browser
 python -mwebbrowser http://drupal.docker
-python -mwebbrowser http://localhost:8983/solr/#/SITE
-python -mwebbrowser http://localhost:4444/grid/console
-python -mwebbrowser http://localhost:1080

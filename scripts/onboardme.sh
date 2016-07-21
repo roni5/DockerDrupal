@@ -48,6 +48,10 @@ which -s ssh-copy-id || curl --progress-bar -L https://raw.githubusercontent.com
 
 cp ~/infra/drupaldev-docker/settings/example-nginx.txt ~/infra/drupaldev-docker/nginx.env
 cp ~/infra/drupaldev-docker/settings/example-mysql.txt ~/infra/drupaldev-docker/mysql.env
+
+# # set up default NGINX conf
+cp ~/infra/drupaldev-docker/settings/default-nginx-conf.txt ~/infra/drupaldev-docker/mounts/conf/nginx/sites-enabled/default
+
 source  ~/.bash_profile
 
 # # #
@@ -61,4 +65,5 @@ sleep 15s
 python -mwebbrowser http://localhost:8983/solr/#/SITE
 python -mwebbrowser http://localhost:4444/grid/console
 python -mwebbrowser http://localhost:1080
+python -mwebbrowser http://localhost:8088
 
