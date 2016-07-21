@@ -46,8 +46,8 @@ which -s composer || curl --progress-bar -sS https://getcomposer.org/installer |
 # #
 which -s ssh-copy-id || curl --progress-bar -L https://raw.githubusercontent.com/beautifulcode/ssh-copy-id-for-OSX/master/install.sh | sh
 
-cp ~/infra/drupaldev-docker/settings/example-nginx.env ~/infra/drupaldev-docker/nginx.env
-cp ~/infra/drupaldev-docker/settings/example-mysql.env ~/infra/drupaldev-docker/mysql.env
+cp ~/infra/drupaldev-docker/settings/example-nginx.txt ~/infra/drupaldev-docker/nginx.env
+cp ~/infra/drupaldev-docker/settings/example-mysql.txt ~/infra/drupaldev-docker/mysql.env
 source  ~/.bash_profile
 
 # # #
