@@ -151,6 +151,9 @@ images/php70/
 *.env
 .log
 
+!settings/example-nginx.env
+!settings/example-mysql.env
+
 logs/supervisord.log
 
 *.log
