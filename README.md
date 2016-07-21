@@ -8,7 +8,7 @@
 
 
   ### Set up Docker Environment
-  1. Install [Docker for Mac](https://docs.docker.com/docker-for-mac)
+  1. Install and run [Docker for Mac](https://docs.docker.com/docker-for-mac)
   2. In terminal paste and run the following:
 
   ```
@@ -16,7 +16,7 @@
    cd ~/infra && \
    git clone https://github.com/4alldigital/drupaldev-docker.git && \
    cd ~/infra/drupaldev-docker && \
-   docker-compose up -d
+   caffeinate -i time ./scripts/onboardme.sh
 
   ```
 
