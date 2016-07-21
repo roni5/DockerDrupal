@@ -4,12 +4,11 @@
 
 # Get Started
 
-  ###PreRequisites:
+  ### PreRequisites
   1. Git
-  2. Docker
-  3. Basic understanding of bash/command-line
+  2. Basic understanding of bash/command-line
 
-  ###Set up Docker Environment
+  ### Set up Docker Environment
   1. Install [Docker for Mac](https://docs.docker.com/docker-for-mac)
   2. In terminal paste and run the following:
 
@@ -22,7 +21,7 @@
 
   ```
 
-  ###Setup Basic Drupal 7 site
+  ### Setup Basic Drupal 7 site
   1. Open `Terminal.app` application in your /Applications/Utilities/ folder
   2. From the command-line run the following:
 
