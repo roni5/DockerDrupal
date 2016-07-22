@@ -114,3 +114,5 @@ images/php70/
 logs/supervisord.log
 
 *.log
+
+*.override.yml
