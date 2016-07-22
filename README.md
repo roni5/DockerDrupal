@@ -37,7 +37,7 @@
 
 DockerDrupal currently utilise the following containers:
 
- 1. https://hub.docker.com/r/4alldigital/drupaldev-php
+ 1. https://hub.docker.com/r/4alldigital/drupaldev-php7
 
  2. https://hub.docker.com/r/4alldigital/drupaldev-redis
 
