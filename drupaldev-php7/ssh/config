@@ -1,5 +1,0 @@
-Host the.platform
-  IdentityFile ~/.ssh/dockerdev
-  Hostname the.platform
-  User root
-  Port 8022

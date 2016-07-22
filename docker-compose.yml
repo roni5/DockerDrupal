@@ -40,15 +40,14 @@ services:
     container_name: dev_mysql
 
   php:
-    image : 4alldigital/drupaldev-php:latest
+    image : 4alldigital/drupaldev-php7:latest
     ports :
      - "8022:22"
     volumes :
       - $APPS_PATH/:/docker
-      - ./mounts/conf/php-fpm/cli-php.ini:/etc/php5/cli/php.ini
-      - ./mounts/conf/php-fpm/php.ini:/etc/php5/fpm/php.ini
-      - ./mounts/conf/php-fpm/conf.d:/etc/php5/fpm/conf.d
-      - ./mounts/conf/php-fpm/pool.d/www.conf:/etc/php5/fpm/pool.d/www.conf
+      - ./mounts/conf/php7-fpm/cli-php.ini:/etc/php/7.0/cli/php.ini
+      - ./mounts/conf/php7-fpm/php.ini:/etc/php/7.0/fpm/php.ini
+      - ./mounts/conf/php7-fpm/pool.d/www.conf:/etc/php/7.0/fpm/pool.d/www.conf
     dns:
       - 8.8.8.8
       - 8.8.4.4
