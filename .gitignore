@@ -116,3 +116,5 @@ logs/supervisord.log
 *.log
 
 *.override.yml
+
+*.log
