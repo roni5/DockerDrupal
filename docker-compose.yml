@@ -48,7 +48,7 @@ services:
       - backend
 
   php:
-    image : 4alldigital/drupaldev-php7:latest
+    image : 4alldigital/drupaldev-php7:1.0.2
     # ports :
     # - "8022:22"
     volumes :
@@ -66,7 +66,7 @@ services:
       - backend
 
   nginx:
-    image : 4alldigital/drupaldev-nginx:latest
+    image : 4alldigital/drupaldev-nginx:1.0.2
     volumes :
       - $APPS_PATH:/docker
       - ./mounts/conf/nginx/nginx.conf:/etc/nginx/conf/nginx.conf
@@ -87,7 +87,7 @@ services:
       - backend
 
   solr:
-    image : 4alldigital/drupaldev-solr:latest
+    image : 4alldigital/drupaldev-solr:1.0.2
     volumes :
       - ./mounts/conf/solr:/opt/solr/example/solr
     hostname: solr
@@ -96,7 +96,7 @@ services:
       - backend
 
   redis:
-    image : 4alldigital/drupaldev-redis:latest
+    image : 4alldigital/drupaldev-redis:1.0.2
     volumes :
       - ./mounts/conf/redis/redis.conf:/etc/redis/redis.conf
       - ./mounts/conf/redis/sentinel.conf:/etc/redis/sentinel.conf
@@ -108,7 +108,7 @@ services:
       - backend
 
   behat:
-    image: 4alldigital/drupaldev-behat
+    image: 4alldigital/drupaldev-behat:1.0.2
     volumes:
       - ./mounts/conf/behat/alias.php:/root/.drush/docker.aliases.drushrc.php
       - $APPS_PATH/:/docker
