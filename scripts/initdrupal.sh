@@ -64,6 +64,7 @@ if [[ $? != 0 ]] ; then
 else
     drush --version | grep ${DRUSH_VERSION}
     if [[ $? != 0 ]] ; then
+      composer global update
       composer global require drush/drush:${DRUSH_VERSION}
     fi
 fi
@@ -251,7 +252,7 @@ else
 fi
 
 #reload nginx conf
-docker exec -i dev_nginx /etc/init.d/nginx reload
+docker exec -i dev_nginx nginx -s reload
 
 # launch in preferred browser
 python -mwebbrowser http://drupal.docker
