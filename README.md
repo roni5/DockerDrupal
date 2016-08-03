@@ -9,12 +9,10 @@
 <br clear='all'/>
 
 ------------------------------------------------------------------------------------------------
-------------------------------------------------------------------------------------------------
 
-### Co - maintainers welcome
- If you want to get in on a Docker development environment for Drupal 7/8 builds please ping me on [Twitter](http://twitter.com/@4alldigital)
+### Questions?
+ Ping me on [Twitter](http://twitter.com/@4alldigital)
 
-------------------------------------------------------------------------------------------------
 ------------------------------------------------------------------------------------------------
 
   ### PreRequisites
