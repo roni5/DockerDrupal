@@ -5,6 +5,7 @@
 <p align='left'>
 [![Drupal version](https://img.shields.io/badge/Drupal-8-blue.svg)]()
 [![Drupal version](https://img.shields.io/badge/Drupal-7-green.svg)]()
+[![Docker version](https://img.shields.io/badge/Docker-12-blue.svg)]()
 <br clear='all'/>
 
 ------------------------------------------------------------------------------------------------
