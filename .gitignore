@@ -118,3 +118,15 @@ logs/supervisord.log
 *.override.yml
 
 *.log
+
+.idea/workspace.xml
+
+.idea/copyright/profiles_settings.xml
+
+.idea/drupaldev-docker.iml
+
+.idea/misc.xml
+
+.idea/modules.xml
+
+.idea/vcs.xml
