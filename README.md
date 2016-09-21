@@ -15,6 +15,13 @@
 
 ------------------------------------------------------------------------------------------------
 
+### - CLI coming soon see - https://github.com/4AllDigital/DockerDrupalCli
+ + config & structural updates simplification see - https://github.com/4AllDigital/DockerDrupal-lite
+ + significant performacne gains using UNISON see - https://github.com/docker/for-mac/issues/77#issuecomment-247972981
+  
+
+------------------------------------------------------------------------------------------------
+
   ### PreRequisites
   1. Git
   2. Basic understanding of bash/command-line
