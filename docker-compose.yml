@@ -79,7 +79,10 @@ services:
     hostname: behat
 
   selenium:
-    image: selenium/hub
+    image: selenium/hub:2.53.0
+    volumes:
+      - /dev/shm:/dev/shm
+      - ./tests/uploads:/e2e/uploads
     ports:
       - 4444:4444
     environment :
@@ -87,25 +90,27 @@ services:
     hostname: selenium
 
   firefox:
-    image: selenium/node-firefox-debug
+    image: selenium/node-firefox-debug:2.53.0
     ports:
       - 5900
     environment:
       - HUB_PORT_4444_TCP_ADDR=selenium
       - HUB_PORT_4444_TCP_PORT=4444
       - no_proxy=localhost
+      - HUB_ENV_no_proxy=localhost
       - REMOTE_HOST_PARAM=-maxSession 4 -browser browserName=firefox,maxInstances=4
     hostname: firefox
 
   chrome:
-    image: selenium/node-chrome-debug
+    image: selenium/node-chrome-debug:2.53.0
     ports:
       - 5901
     environment:
       - HUB_PORT_4444_TCP_ADDR=selenium
       - HUB_PORT_4444_TCP_PORT=4444
       - no_proxy=localhost
-      - REMOTE_HOST_PARAM=-maxSession 4 -browser browserName=firefox,maxInstances=4
+      - HUB_ENV_no_proxy=localhost
+      - REMOTE_HOST_PARAM=-maxSession 4 -browser browserName=chrome,maxInstances=4
     hostname: chrome
 
 #
