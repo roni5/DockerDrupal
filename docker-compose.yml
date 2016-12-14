@@ -29,15 +29,15 @@ services:
     volumes_from:
         - app:rw
     environment:
-      XDEBUG_CONFIG: "remote_host=${DOCKER_HOST_IP}"
+      XDEBUG_CONFIG: "remote_host=10.254.254.254"
       PHP_IDE_CONFIG: "serverName=docker.dev"
-      HOST_IP: "${DOCKER_HOST_IP}"
+      HOST_IP: "10.254.254.254"
     dns:
       - 8.8.8.8
       - 8.8.4.4
     hostname: php
     extra_hosts:
-     - "docker.dev:${DOCKER_HOST_IP}"
+     - "docker.dev:10.254.254.254"
 
   nginx:
     image : 4alldigital/drupaldev-nginx:latest
@@ -73,31 +73,28 @@ services:
     image: 4alldigital/drupaldev-behat:latest
     volumes:
       - ./config/behat/alias.php:/root/.drush/docker.aliases.drushrc.php
-      - ./config/behat/tests/:/root/behat/
+      - ../app/repository/behat/tests/:/root/behat/
       - ../tests/screenshots/:/tmp/screenshots
-#      - $APPS_PATH/:/app/www
-#      - $APPS_PATH/tests/screenshots/:/var/tmp/screenshots
-#      - $APPS_PATH/tests/tmp/:/tmp
     volumes_from:
         - app:rw
     environment:
       website: http://docker.dev
     hostname: behat
     extra_hosts:
-     - "docker.dev:${DOCKER_HOST_IP}"
+     - "docker.dev:10.254.254.254"
 
   selenium:
     image: selenium/hub:2.53.0
     volumes:
       - /dev/shm:/dev/shm
-      - ./tests/uploads:/e2e/uploads
+      - ../tests/uploads/:/e2e/uploads
     ports:
       - 4444:4444
     environment :
       - SE_OPTS=-debug
     hostname: selenium
     extra_hosts:
-     - "docker.dev:${DOCKER_HOST_IP}"
+     - "docker.dev:10.254.254.254"
 
   firefox:
     image: selenium/node-firefox-debug:2.53.0
@@ -111,7 +108,7 @@ services:
       - REMOTE_HOST_PARAM=-maxSession 4 -browser browserName=firefox,maxInstances=4
     hostname: firefox
     extra_hosts:
-     - "docker.dev:${DOCKER_HOST_IP}"
+     - "docker.dev:10.254.254.254"
 
   chrome:
     image: selenium/node-chrome-debug:2.53.0
@@ -125,7 +122,7 @@ services:
       - REMOTE_HOST_PARAM=-maxSession 4 -browser browserName=chrome,maxInstances=4
     hostname: chrome
     extra_hosts:
-     - "docker.dev:${DOCKER_HOST_IP}"
+     - "docker.dev:10.254.254.254"
 
 #
 # [ volumes definition ]
