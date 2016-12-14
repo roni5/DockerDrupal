@@ -7,4 +7,4 @@ Feature: About us section
   @parallel-scenario
   Scenario: Browse to Home page
     Given I am on the homepage
-    Then I should see "Welcome to DrupalDocker"
+    Then I should see "Welcome to DockerDrupal"

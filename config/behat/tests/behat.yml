@@ -14,9 +14,9 @@ default:
                   'pass'
               email:
                 host:
-                  'drupal.docker'
+                  'docker.dev'
                 address:
-                  'testuser@drupal.docker'
+                  'testuser@docker.dev'
                 username:
                   'the_behatuser'
                 password:
@@ -61,11 +61,11 @@ default:
                 tweets: '.twitter-timeline'
               email:
                 host:
-                  'drupal.docker'
+                  'docker.dev'
                 address:
-                  'the_behatuser@drupal.docker'
+                  'dd_behatuser@docker.dev'
                 username:
-                  'the_behatuser'
+                  'dd_behatuser'
                 password:
                   'testpassword'
         - Alex\MailCatcher\Behat\MailCatcherContext
@@ -113,18 +113,18 @@ local:
   extensions:
     Tonic\Behat\ParallelScenarioExtension: ~
     Alex\MailCatcher\Behat\MailCatcherExtension\Extension:
-      url: http://drupal.docker:1080
+      url: http://docker.dev:1080
       purge_before_scenario: true
     Behat\MinkExtension:
-      base_url: http://drupal.docker
+      base_url: http://docker.dev
       selenium2:
-        wd_host: "http://localhost:4444/wd/hub"
+        wd_host: "http://docker.dev:4444/wd/hub"
         capabilities:
           browser: firefox
           version: ''
           deviceType: ''
     Drupal\DrupalExtension:
       drush:
-        alias: 'docker.drupal_docker'
+        alias: 'docker.dockerdrupal'
       drupal:
-        drupal_root: '/docker/drupal_docker/www'
+        drupal_root: '/app/www'

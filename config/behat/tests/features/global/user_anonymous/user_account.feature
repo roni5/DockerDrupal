@@ -44,7 +44,7 @@ Feature: Register an account on timeshighereducation.com with valid username and
      | Joe User | joe@example.com | 1      |
      And I am not logged in
      And I go to "user/login"
-     And I fill in "Username or e-mail address" with "joe@example.com"
+     And I fill in "Username" with "dev"
      And I fill in "Password" with "invalid"
      And I press "Log in"
    Then I should see "Sorry, unrecognized username or password."
