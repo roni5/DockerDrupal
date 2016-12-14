@@ -22,6 +22,8 @@ services:
 
   php:
     image : 4alldigital/drupaldev-php7:latest
+    ports :
+     - "8022:22"
     volumes :
       - ./config/20-xdebug.ini:/etc/php/7.0/fpm/conf.d/20-xdebug.ini
     volumes_from:
@@ -71,12 +73,18 @@ services:
     image: 4alldigital/drupaldev-behat:latest
     volumes:
       - ./config/behat/alias.php:/root/.drush/docker.aliases.drushrc.php
+      - ./config/behat/tests/:/root/behat/
+      - ../tests/screenshots/:/tmp/screenshots
 #      - $APPS_PATH/:/app/www
 #      - $APPS_PATH/tests/screenshots/:/var/tmp/screenshots
 #      - $APPS_PATH/tests/tmp/:/tmp
+    volumes_from:
+        - app:rw
     environment:
       website: http://docker.dev
     hostname: behat
+    extra_hosts:
+     - "docker.dev:${DOCKER_HOST_IP}"
 
   selenium:
     image: selenium/hub:2.53.0
@@ -88,6 +96,8 @@ services:
     environment :
       - SE_OPTS=-debug
     hostname: selenium
+    extra_hosts:
+     - "docker.dev:${DOCKER_HOST_IP}"
 
   firefox:
     image: selenium/node-firefox-debug:2.53.0
@@ -100,6 +110,8 @@ services:
       - HUB_ENV_no_proxy=localhost
       - REMOTE_HOST_PARAM=-maxSession 4 -browser browserName=firefox,maxInstances=4
     hostname: firefox
+    extra_hosts:
+     - "docker.dev:${DOCKER_HOST_IP}"
 
   chrome:
     image: selenium/node-chrome-debug:2.53.0
@@ -112,6 +124,8 @@ services:
       - HUB_ENV_no_proxy=localhost
       - REMOTE_HOST_PARAM=-maxSession 4 -browser browserName=chrome,maxInstances=4
     hostname: chrome
+    extra_hosts:
+     - "docker.dev:${DOCKER_HOST_IP}"
 
 #
 # [ volumes definition ]
