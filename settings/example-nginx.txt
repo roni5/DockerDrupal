@@ -1,2 +1,0 @@
-VIRTUAL_HOST=localhost,drupal.docker
-VIRTUAL_NETWORK=nginx-proxy

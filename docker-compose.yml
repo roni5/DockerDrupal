@@ -3,133 +3,80 @@ version: "2"
 # [ services definitions ]
 #
 services:
-  nginx-proxy:
-    image: jwilder/nginx-proxy
-    ports:
-      - '80:80'
-      - '443:443'
-    volumes:
-      - /var/run/docker.sock:/tmp/docker.sock:ro
-      - ./mounts/conf/nginx/proxy/nginx.conf:/etc/nginx/nginx.conf
-      - ./mounts/conf/nginx/templates/proxy-nginx.tmpl:/app/nginx.tmpl
-      - /tmp/nginx:/etc/nginx/conf.d
-    hostname: nginx-proxy
-    container_name: dev_nginxproxy
-    networks:
-      - frontend
-      - backend
-
-  dockergen:
-    image: jwilder/docker-gen
-    volumes:
-      - /var/run/docker.sock:/tmp/docker.sock
-      - ./mounts/conf/nginx/templates/nginx.tmpl:/etc/docker-gen/templates/nginx.tmpl
-    volumes_from:
-      - nginx
-    hostname: dockergen
-    container_name: dev_dockergen
-    command: >
-      -watch
-      -only-exposed
-      -notify-sighup dev_nginx
-      /etc/docker-gen/templates/nginx.tmpl
-      /etc/nginx/conf.d/default.conf
-    networks:
-      - frontend
+  app:
+    image : 4alldigital/drupaldev-unison
+    volumes :
+     - ../app:/code
+     - app-sync:/app
+    hostname : app
 
   db:
     image : mariadb:10.1.11
     ports :
       - "3306:3306"
     volumes :
-      - mysql-data:/var/lib/mysql
-      - ./mounts/conf/mysql/conf.d:/etc/mysql/conf.d
+      - dd-mysqldata:/var/lib/mysql
+      - ./config/mysql:/etc/mysql/conf.d
     env_file: mysql.env
     hostname: db
-    container_name: dev_mysql
-    networks:
-      - backend
 
   php:
     image : 4alldigital/drupaldev-php7:latest
-    ports :
-      - "8022:22"
     volumes :
-      - $APPS_PATH/:/docker
-      - ./mounts/conf/php7-fpm/cli-php.ini:/etc/php/7.0/cli/php.ini
-      - ./mounts/conf/php7-fpm/php.ini:/etc/php/7.0/fpm/php.ini
-      - ./mounts/conf/php7-fpm/pool.d/www.conf:/etc/php/7.0/fpm/pool.d/www.conf
+      - ./config/20-xdebug.ini:/etc/php/7.0/fpm/conf.d/20-xdebug.ini
+    volumes_from:
+        - app:rw
+    environment:
+      XDEBUG_CONFIG: "remote_host=${DOCKER_HOST_IP}"
+      PHP_IDE_CONFIG: "serverName=docker.dev"
+      HOST_IP: "${DOCKER_HOST_IP}"
     dns:
       - 8.8.8.8
       - 8.8.4.4
-    tty : true
     hostname: php
-    container_name: dev_php
-    networks:
-      - backend
+    extra_hosts:
+     - "docker.dev:${DOCKER_HOST_IP}"
 
   nginx:
     image : 4alldigital/drupaldev-nginx:latest
     ports :
-      - "8088:80"
-      - "4443:443"
+      - "80:80"
     volumes :
-      - $APPS_PATH:/docker
-      - ./mounts/conf/nginx/nginx.conf:/etc/nginx/conf/nginx.conf
-      - ./mounts/conf/nginx/pagespeed.conf:/etc/nginx/conf.d/pagespeed.conf
-      - ./mounts/conf/nginx/supervisord.conf:/etc/supervisor/conf.d/supervisord.conf
-      - ./mounts/conf/nginx/sites-enabled:/etc/nginx/sites-enabled
-    env_file: nginx.env
+      - ./sites-enabled:/etc/nginx/sites-enabled
+    volumes_from:
+      - app:rw
     hostname: nginx
-    container_name: dev_nginx
-    networks:
-      - backend
 
-  mailcatcher:
-    image : schickling/mailcatcher
-    ports :
-      - "1080:1080"
-    hostname: mailcatcher
-    container_name: dev_mailcatcher
-    networks:
-      - backend
+  redis:
+    image : 4alldigital/drupaldev-redis:latest
+    hostname: redis
+    mem_limit: 100000000
+    memswap_limit: 2000000000
 
   solr:
     image : 4alldigital/drupaldev-solr:latest
     ports :
       - "8983:8983"
     volumes :
-      - ./mounts/conf/solr:/opt/solr/example/solr
+      - ./config/solr:/opt/solr/example/solr
     hostname: solr
-    container_name: dev_solr
-    networks:
-      - backend
 
-  redis:
-    image : 4alldigital/drupaldev-redis:latest
-    volumes :
-      - ./mounts/conf/redis/redis.conf:/etc/redis/redis.conf
-      - ./mounts/conf/redis/sentinel.conf:/etc/redis/sentinel.conf
-    hostname: redis
-    container_name: dev_redis
-    mem_limit: 100000000
-    memswap_limit: 2000000000
-    networks:
-      - backend
+  mailcatcher:
+    image : schickling/mailcatcher
+    ports :
+      - "1080:1080"
+    hostname: mailcatcher
 
   behat:
     image: 4alldigital/drupaldev-behat:latest
     volumes:
-      - ./mounts/conf/behat/alias.php:/root/.drush/docker.aliases.drushrc.php
-      - $APPS_PATH/:/docker
-      - $APPS_PATH/tests/screenshots/:/var/tmp/screenshots
-      - $APPS_PATH/tests/tmp/:/tmp
+      - ./config/behat/alias.php:/root/.drush/docker.aliases.drushrc.php
+#      - $APPS_PATH/:/app/www
+#      - $APPS_PATH/tests/screenshots/:/var/tmp/screenshots
+#      - $APPS_PATH/tests/tmp/:/tmp
     environment:
-      website: http://drupal.docker
+      website: http://docker.dev
     hostname: behat
-    container_name: dev_behat
-    networks:
-      - backend
 
   selenium:
     image: selenium/hub
@@ -138,9 +85,6 @@ services:
     environment :
       - SE_OPTS=-debug
     hostname: selenium
-    container_name: dev_selenium
-    networks:
-      - backend
 
   firefox:
     image: selenium/node-firefox-debug
@@ -152,9 +96,6 @@ services:
       - no_proxy=localhost
       - REMOTE_HOST_PARAM=-maxSession 4 -browser browserName=firefox,maxInstances=4
     hostname: firefox
-    container_name: dev_firefox
-    networks:
-      - backend
 
   chrome:
     image: selenium/node-chrome-debug
@@ -166,22 +107,12 @@ services:
       - no_proxy=localhost
       - REMOTE_HOST_PARAM=-maxSession 4 -browser browserName=firefox,maxInstances=4
     hostname: chrome
-    container_name: dev_chrome
-    networks:
-      - backend
 
 #
 # [ volumes definition ]
 #
 volumes:
-  mysql-data:
+  dd-mysqldata:
     driver: local
-
-#
-# [ networks definition ]
-#
-networks:
-  frontend:
-    driver: bridge
-  backend:
-    driver: bridge
+  app-sync:
+    driver: local
