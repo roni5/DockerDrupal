@@ -104,29 +104,11 @@ mounts/conf/behat/docker.aliases.drushrc.php
 
 npm/*
 
-images/php7
-images/php70/
-
-# .env is local nginx config such as vhosts needed to nginx-proxy frontend -> backend. is required, but will not be version controlled
-*.env
 .log
-
 logs/supervisord.log
 
 *.log
-
 *.override.yml
 
 *.log
-
-.idea/workspace.xml
-
-.idea/copyright/profiles_settings.xml
-
-.idea/drupaldev-docker.iml
-
-.idea/misc.xml
-
-.idea/modules.xml
-
-.idea/vcs.xml
+.idea/*
